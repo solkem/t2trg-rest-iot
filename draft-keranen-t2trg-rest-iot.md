@@ -86,7 +86,7 @@ The Representational State Transfer (REST) architectural style {{REST}} is a set
 When REST principles are applied to the design of a system, the result is often called RESTful and in particular an API following these principles is called a RESTful API.
 Different protocols can be used with RESTful systems, but at the time of writing the most common protocols are HTTP {{RFC7230}}, HTTP/2 {{RFC7540}}, and CoAP {{RFC7252}}.
 
-RESTful design facilitates many desirable features for a system, such as good scaling properties and evolvability. RESTful APIs are also often simple and lightweight, and hence easy to use also with various IoT applications. The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information.
+RESTful design facilitates many desirable features for a system, such as good scaling properties and modifiability (see {{REST}} Section 2.3). RESTful APIs are also often simple and lightweight, and hence easy to use also with various IoT applications. The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information.
 
 Design of a good RESTful IoT system has naturally many commonalities with other Web systems. Yet compared to other systems, the key characteristics of many IoT systems include:
 
