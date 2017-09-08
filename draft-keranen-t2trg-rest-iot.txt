@@ -60,52 +60,52 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  Basics  . . . . . . . . . . . . . . . . . . . . . . . . . . .   6
      3.1.  Architecture  . . . . . . . . . . . . . . . . . . . . . .   6
      3.2.  System design . . . . . . . . . . . . . . . . . . . . . .   8
-     3.3.  Uniform Resource Identifiers (URIs) . . . . . . . . . . .   8
+     3.3.  Uniform Resource Identifiers (URIs) . . . . . . . . . . .   9
      3.4.  Representations . . . . . . . . . . . . . . . . . . . . .  10
      3.5.  HTTP/CoAP Methods . . . . . . . . . . . . . . . . . . . .  10
-       3.5.1.  GET . . . . . . . . . . . . . . . . . . . . . . . . .  10
+       3.5.1.  GET . . . . . . . . . . . . . . . . . . . . . . . . .  11
        3.5.2.  POST  . . . . . . . . . . . . . . . . . . . . . . . .  11
        3.5.3.  PUT . . . . . . . . . . . . . . . . . . . . . . . . .  11
-       3.5.4.  DELETE  . . . . . . . . . . . . . . . . . . . . . . .  11
+       3.5.4.  DELETE  . . . . . . . . . . . . . . . . . . . . . . .  12
      3.6.  HTTP/CoAP Status/Response Codes . . . . . . . . . . . . .  12
-   4.  REST Constraints  . . . . . . . . . . . . . . . . . . . . . .  12
+   4.  REST Constraints  . . . . . . . . . . . . . . . . . . . . . .  13
      4.1.  Client-Server . . . . . . . . . . . . . . . . . . . . . .  13
      4.2.  Stateless . . . . . . . . . . . . . . . . . . . . . . . .  13
-     4.3.  Cache . . . . . . . . . . . . . . . . . . . . . . . . . .  13
+     4.3.  Cache . . . . . . . . . . . . . . . . . . . . . . . . . .  14
      4.4.  Uniform Interface . . . . . . . . . . . . . . . . . . . .  14
-     4.5.  Layered System  . . . . . . . . . . . . . . . . . . . . .  14
-     4.6.  Code-on-Demand  . . . . . . . . . . . . . . . . . . . . .  14
+     4.5.  Layered System  . . . . . . . . . . . . . . . . . . . . .  15
+     4.6.  Code-on-Demand  . . . . . . . . . . . . . . . . . . . . .  15
    5.  Hypermedia-driven Applications  . . . . . . . . . . . . . . .  15
      5.1.  Motivation  . . . . . . . . . . . . . . . . . . . . . . .  15
-     5.2.  A Priori  . . . . . . . . . . . . . . . . . . . . . . . .  15
+     5.2.  A Priori  . . . . . . . . . . . . . . . . . . . . . . . .  16
      5.3.  At Runtime  . . . . . . . . . . . . . . . . . . . . . . .  16
    6.  Design Patterns . . . . . . . . . . . . . . . . . . . . . . .  16
-     6.1.  Collections . . . . . . . . . . . . . . . . . . . . . . .  16
-     6.2.  Executing a Function  . . . . . . . . . . . . . . . . . .  16
-     6.3.  Long-running Functions  . . . . . . . . . . . . . . . . .  16
-     6.4.  Conversion  . . . . . . . . . . . . . . . . . . . . . . .  16
-       6.4.1.  Text-to-Speech  . . . . . . . . . . . . . . . . . . .  17
-       6.4.2.  Speech-to-Text  . . . . . . . . . . . . . . . . . . .  17
-     6.5.  Events as State . . . . . . . . . . . . . . . . . . . . .  17
-     6.6.  Server Push . . . . . . . . . . . . . . . . . . . . . . .  17
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
-   8.  Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  18
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  18
+     6.1.  Collections . . . . . . . . . . . . . . . . . . . . . . .  17
+     6.2.  Calling a Function  . . . . . . . . . . . . . . . . . . .  17
+       6.2.1.  Instantly Returning Functions . . . . . . . . . . . .  17
+       6.2.2.  Long-running Functions  . . . . . . . . . . . . . . .  17
+       6.2.3.  Conversion  . . . . . . . . . . . . . . . . . . . . .  17
+       6.2.4.  Text-to-Speech Example  . . . . . . . . . . . . . . .  17
+       6.2.5.  Speech-to-Text Example  . . . . . . . . . . . . . . .  17
+       6.2.6.  Events as State . . . . . . . . . . . . . . . . . . .  17
+     6.3.  Server Push . . . . . . . . . . . . . . . . . . . . . . .  18
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
+   8.  Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  19
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  19
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  20
    Appendix A.  Future Work  . . . . . . . . . . . . . . . . . . . .  21
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  22
 
-1.  Introduction
 
-   The Representational State Transfer (REST) architectural style [REST]
-   is a set of guidelines and best practices for building distributed
-   hypermedia systems.  At its core is a set of constraints, which when
+
+
+
 
 
 
@@ -114,6 +114,11 @@ Keranen & Kovatsch       Expires March 12, 2018                 [Page 2]
 Internet-Draft       RESTful Design for IoT Systems       September 2017
 
 
+1.  Introduction
+
+   The Representational State Transfer (REST) architectural style [REST]
+   is a set of guidelines and best practices for building distributed
+   hypermedia systems.  At its core is a set of constraints, which when
    fulfilled enable desirable properties for distributed software
    systems such as scalability and modifiability.  When REST principles
    are applied to the design of a system, the result is often called
@@ -150,17 +155,12 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
       responses.
 
    Client State:  The state kept by a client between requests.  This
-      typically includes the "current" resource, the set of active
-      requests, the history of requests, bookmarks (URIs stored for
-      later retrieval) and application-specific state.  (Note that this
-      is called "Application State" in [REST], which has some ambiguity
-      in modern (IoT) systems where the overall state of the distributed
-      application (i.e., application state) is reflected in the union of
-      all Client States and Resource States of all clients and servers
-      involved.)
-
-   Content Negotiation:  The practice of determining the "best"
-      representation for a client when examining the current state of a
+      typically includes the currently processed representation, the set
+      of active requests, the history of requests, bookmarks (URIs
+      stored for later retrieval), and application-specific state (e.g.,
+      local variables).  (Note that this is called "Application State"
+      in [REST], which has some ambiguity in modern (IoT) systems where
+      the overall state of the distributed application (i.e.,
 
 
 
@@ -170,6 +170,11 @@ Keranen & Kovatsch       Expires March 12, 2018                 [Page 3]
 Internet-Draft       RESTful Design for IoT Systems       September 2017
 
 
+      application state) is reflected in the union of all Client States
+      and Resource States of all clients and servers involved.)
+
+   Content Negotiation:  The practice of determining the "best"
+      representation for a client when examining the current state of a
       resource.  The most common forms of content negotiation are
       Proactive Content Negotiation and Reactive Content Negotiation.
 
@@ -211,12 +216,7 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    Link Relation Type:  An identifier that describes how the link target
       resource relates to the current resource (see [RFC5988]).
 
-   Media Type:  A string such as "text/html" or "application/json" that
-      is used to label representations so that it is known how the
-      representation should be interpreted and how it is encoded.
 
-   Method:  An operation associated with a resource.  Common methods
-      include GET, PUT, POST, and DELETE (see Section 3.5 for details).
 
 
 
@@ -225,6 +225,13 @@ Keranen & Kovatsch       Expires March 12, 2018                 [Page 4]
 
 Internet-Draft       RESTful Design for IoT Systems       September 2017
 
+
+   Media Type:  A string such as "text/html" or "application/json" that
+      is used to label representations so that it is known how the
+      representation should be interpreted and how it is encoded.
+
+   Method:  An operation associated with a resource.  Common methods
+      include GET, PUT, POST, and DELETE (see Section 3.5 for details).
 
    Origin Server:  A server that is the definitive source for
       representations of its resources and the ultimate recipient of any
@@ -267,13 +274,6 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
 
    Resource:  An item of interest identified by a URI.  Anything that
       can be named can be a resource.  A resource often encapsulates a
-      piece of state in a system.  Typical resources in an IoT system
-      can be, e.g., a sensor, the current value of a sensor, the
-      location of a device, or the current state of an actuator.
-
-   Resource State:  A model of a resource's possible states that is
-      represented in a supported representation type, typically a media
-      type.  Resources can change state because of REST interactions
 
 
 
@@ -282,6 +282,13 @@ Keranen & Kovatsch       Expires March 12, 2018                 [Page 5]
 Internet-Draft       RESTful Design for IoT Systems       September 2017
 
 
+      piece of state in a system.  Typical resources in an IoT system
+      can be, e.g., a sensor, the current value of a sensor, the
+      location of a device, or the current state of an actuator.
+
+   Resource State:  A model of a resource's possible states that is
+      represented in a supported representation type, typically a media
+      type.  Resources can change state because of REST interactions
       with them, or they can change state for reasons outside of the
       REST model.
 
@@ -321,14 +328,7 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    to issue requests.  Origin servers always have the server role and
    govern over the resources they host.
 
-                 ________                       _________
-                |        |                     |         |
-                | User  (C)-------------------(S) Origin |
-                | Agent  |                     |  Server |
-                |________|                     |_________|
-                (Browser)                      (Web Server)
 
-                   Figure 1: Client-Server Communication
 
 
 
@@ -337,6 +337,15 @@ Keranen & Kovatsch       Expires March 12, 2018                 [Page 6]
 
 Internet-Draft       RESTful Design for IoT Systems       September 2017
 
+
+                 ________                       _________
+                |        |                     |         |
+                | User  (C)-------------------(S) Origin |
+                | Agent  |                     |  Server |
+                |________|                     |_________|
+                (Browser)                      (Web Server)
+
+                   Figure 1: Client-Server Communication
 
    Intermediaries (such as forward proxies, reverse proxies, and
    gateways) implement both roles, but only forward requests to other
@@ -380,15 +389,6 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
 
 
 
-
-
-
-
-
-
-
-
-
 Keranen & Kovatsch       Expires March 12, 2018                 [Page 7]
 
 Internet-Draft       RESTful Design for IoT Systems       September 2017
@@ -409,17 +409,47 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
 
 3.2.  System design
 
-   When designing a RESTful system, the state of the distributed
-   application must be assigned to the different components.  Here, it
-   is important to distinguish between "client state" and "resource
-   state".
+   When designing a RESTful system, the primary effort goes into
+   modeling the state of the distributed application and assigning it to
+   the different components (i.e., clients and servers).  How clients
+   can navigate through the resources and modify state to achieve their
+   goals is defined through hypermedia controls, that is, links and
+   forms.  Hypermedia controls span a kind of a state machine where the
+   nodes are resources and the transitions are links or forms.  Clients
+   run this state machine (i.e., the application) by retrieving
+   representations, processing the data, and following the included
+   hypermedia controls.  In REST, remote state is changed by submitting
+   forms.  This is usually done by retrieving the current state,
+   modifying the state on the client side, and transfering the new state
+   to the server in the form of new representations - rather then
+   calling a service and modifying the state on the server side.
 
-   Client state encompasses the control flow and the interactions
-   between the components (see Section 2).  Following the Stateless
-   constraint, the client state must be kept only on clients.  That is,
-   there is no establishment of shared information about future
+   Client state encompasses the current state of the described state
+   machine and the possible next transitions derived from the hypermedia
+   controls within the currently processed representation (see
+   Section 2).  Furthermore, clients can have part of the state of the
+   distributed application in local variables.
+
+   Resource state includes the more persistent data of an application
+   (i.e., independent of individual clients).  This can be static data
+   such as device descriptions, persistent data such as system
+   configurations, but also dynamic data such as the current value of a
+   sensor on a thing.
+
+   It is important to distinguish between "client state" and "resource
+   state" and keep it separate.  Following the Stateless constraint, the
+   client state must be kept only on clients.  That is, there is no
+   establishment of shared information about past and future
    interactions between client and server (usually called a session).
    On the one hand, this makes requests a bit more verbose since every
+
+
+
+Keranen & Kovatsch       Expires March 12, 2018                 [Page 8]
+
+Internet-Draft       RESTful Design for IoT Systems       September 2017
+
+
    request must contain all the information necessary to process it.  On
    the other hand, this makes servers efficient and scalable, since they
    do not have to keep any state about their clients.  Requests can
@@ -429,26 +459,11 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    constrained servers (e.g., sensor nodes) and servers serving large
    amount of clients (e.g., Resource Directory).
 
-   Resource state includes the more persistent data of an application
-   (i.e., independent of the client control flow and lifetime).  This
-   can be static data such as device descriptions, persistent data such
-   as system configuration, but also dynamic data such as the current
-   value of a sensor on a thing.
-
 3.3.  Uniform Resource Identifiers (URIs)
 
    An important part of RESTful API design is to model the system as a
    set of resources whose state can be retrieved and/or modified and
    where resources can be potentially also created and/or deleted.
-
-
-
-
-
-Keranen & Kovatsch       Expires March 12, 2018                 [Page 8]
-
-Internet-Draft       RESTful Design for IoT Systems       September 2017
-
 
    Uniform Resource Identifiers (URIs) are used to indicate a resource
    for interaction, to reference a resource from another resource, to
@@ -483,6 +498,14 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    "coaps", "http", and "coap".  These refer to HTTP and CoAP, with and
    without Transport Layer Security (TLS) [RFC5246].  (CoAP uses
    Datagram TLS (DTLS) [RFC6347], the variant of TLS for UDP.)  These
+
+
+
+Keranen & Kovatsch       Expires March 12, 2018                 [Page 9]
+
+Internet-Draft       RESTful Design for IoT Systems       September 2017
+
+
    four schemes also provide means for locating the resource; using the
    HTTP protocol for "http" and "https", and with the CoAP protocol for
    "coap" and "coaps".  If the scheme is different for two URIs (e.g.,
@@ -497,15 +520,6 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    such established semantics and are not commonly used.  Whether the
    order of the query parameters matters in URIs is unspecified and they
    can be re-ordered e.g., by proxies.  Therefore applications should
-
-
-
-
-Keranen & Kovatsch       Expires March 12, 2018                 [Page 9]
-
-Internet-Draft       RESTful Design for IoT Systems       September 2017
-
-
    not rely on their order; see Section 3.3 of [RFC6943] for more
    details.
 
@@ -538,20 +552,6 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    request.  The following lists the most relevant methods and gives a
    short explanation of their semantics.
 
-3.5.1.  GET
-
-   The GET method requests a current representation for the target
-   resource.  Only the origin server needs to know how each of its
-   resource identifiers corresponds to an implementation and how each
-   implementation manages to select and send a current representation of
-   the target resource in a response to GET.
-
-   A payload within a GET request message has no defined semantics.
-
-   The GET method is safe and idempotent.
-
-
-
 
 
 
@@ -561,6 +561,19 @@ Keranen & Kovatsch       Expires March 12, 2018                [Page 10]
 
 Internet-Draft       RESTful Design for IoT Systems       September 2017
 
+
+3.5.1.  GET
+
+   The GET method requests a current representation for the target
+   resource, while the origin server must ensure that there are no side-
+   effects on the resource state.  Only the origin server needs to know
+   how each of its resource identifiers corresponds to an implementation
+   and how each implementation manages to select and send a current
+   representation of the target resource in a response to GET.
+
+   A payload within a GET request message has no defined semantics.
+
+   The GET method is safe and idempotent.
 
 3.5.2.  POST
 
@@ -597,6 +610,14 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
 
    The PUT method is not safe, but is idempotent.
 
+
+
+
+Keranen & Kovatsch       Expires March 12, 2018                [Page 11]
+
+Internet-Draft       RESTful Design for IoT Systems       September 2017
+
+
 3.5.4.  DELETE
 
    The DELETE method requests that the origin server remove the
@@ -610,13 +631,6 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    origin server.
 
    The DELETE method is not safe, but is idempotent.
-
-
-
-Keranen & Kovatsch       Expires March 12, 2018                [Page 11]
-
-Internet-Draft       RESTful Design for IoT Systems       September 2017
-
 
 3.6.  HTTP/CoAP Status/Response Codes
 
@@ -649,6 +663,17 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    have a 2.00 response code whereas 200 ("OK") is commonly used with
    HTTP.
 
+
+
+
+
+
+
+Keranen & Kovatsch       Expires March 12, 2018                [Page 12]
+
+Internet-Draft       RESTful Design for IoT Systems       September 2017
+
+
 4.  REST Constraints
 
    The REST architectural style defines a set of constraints for the
@@ -666,13 +691,6 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    o  Modifiability
 
    o  Visibility
-
-
-
-Keranen & Kovatsch       Expires March 12, 2018                [Page 12]
-
-Internet-Draft       RESTful Design for IoT Systems       September 2017
-
 
    o  Portability
 
@@ -705,6 +723,13 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
 
    Furthermore, the Stateless constraint enables caching.
 
+
+
+Keranen & Kovatsch       Expires March 12, 2018                [Page 13]
+
+Internet-Draft       RESTful Design for IoT Systems       September 2017
+
+
 4.3.  Cache
 
    This constraint requires responses to have implicit or explicit
@@ -720,15 +745,6 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    many requests.  Local caches furthermore improve reliability, since
    requests can be answered even if the origin server is temporarily not
    available.
-
-
-
-
-
-Keranen & Kovatsch       Expires March 12, 2018                [Page 13]
-
-Internet-Draft       RESTful Design for IoT Systems       September 2017
-
 
 4.4.  Uniform Interface
 
@@ -761,6 +777,15 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    hypermedia-driven, uniform interfaces allow clients and servers to
    evolve independently, and hence enable a system to evolve.
 
+
+
+
+
+Keranen & Kovatsch       Expires March 12, 2018                [Page 14]
+
+Internet-Draft       RESTful Design for IoT Systems       September 2017
+
+
 4.5.  Layered System
 
    This constraint enforces that a client cannot see beyond the server
@@ -777,15 +802,6 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
 
    Code-on-Demand improves modifiability, since new features can be
    deployed during runtime (e.g., support for a new representation
-
-
-
-
-Keranen & Kovatsch       Expires March 12, 2018                [Page 14]
-
-Internet-Draft       RESTful Design for IoT Systems       September 2017
-
-
    format).  It also improves performance, as the server can provide
    code for local pre-processing before transferring the data.
 
@@ -818,6 +834,14 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    o  The server offers links and forms depending on the current state.
       The server can tell the client which operations are currently
       valid and thus help the client navigate the application state
+
+
+
+Keranen & Kovatsch       Expires March 12, 2018                [Page 15]
+
+Internet-Draft       RESTful Design for IoT Systems       September 2017
+
+
       machine.  The client does not have to have knowledge which
       operations are allowed in the current state or make a request just
       to find out that the operation is not valid.
@@ -833,14 +857,6 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    a REST system.
 
    o  URI schemes that identify communication protocols,
-
-
-
-
-Keranen & Kovatsch       Expires March 12, 2018                [Page 15]
-
-Internet-Draft       RESTful Design for IoT Systems       September 2017
-
 
    o  Internet Media Types that identify representation formats,
 
@@ -874,22 +890,6 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    established ways to represent the logic with resources and REST
    methods.
 
-   The following sections describe how such interactions can be modeled
-   in a RESTful system and what are the benefits of different
-   approaches.
-
-6.1.  Collections
-
-6.2.  Executing a Function
-
-6.3.  Long-running Functions
-
-6.4.  Conversion
-
-   GET is cachable, good for static information such as look-up tables
-   POST if the payload is large or binary, also good for time-dependent
-   information
-
 
 
 
@@ -898,11 +898,40 @@ Keranen & Kovatsch       Expires March 12, 2018                [Page 16]
 Internet-Draft       RESTful Design for IoT Systems       September 2017
 
 
-6.4.1.  Text-to-Speech
+   The following sections describe how such interactions can be modeled
+   in a RESTful system and what are the benefits of different
+   approaches.
 
-6.4.2.  Speech-to-Text
+6.1.  Collections
 
-6.5.  Events as State
+6.2.  Calling a Function
+
+   To modify resource state, clients usually GET a representation from
+   the server, process it locally, and transfer the resulting state back
+   to the server with a PUT.  Sometimes, however, the state can only be
+   modified on the server side, for instance, because representations
+   would be too large to transfer or part of the required information
+   shall not be accessible to clients.
+
+   In this case, resource state is modified by calling a function.  This
+   is usually modeled with a POST request, as it leaves the behavior
+   semantics completely to the server.
+
+6.2.1.  Instantly Returning Functions
+
+6.2.2.  Long-running Functions
+
+6.2.3.  Conversion
+
+   GET is cachable, good for static information such as look-up tables
+   POST if the payload is large or binary, also good for time-dependent
+   information
+
+6.2.4.  Text-to-Speech Example
+
+6.2.5.  Speech-to-Text Example
+
+6.2.6.  Events as State
 
    In event-centric paradigms such as pub/sub, events are usually
    represented by an incoming message that might be even be identical
@@ -917,6 +946,14 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    natural yet, a door bell could be modelled as a resource that can
    have the states unpressed and pressed.  There are, however, a few
    issues with this approach.  Polling is not an option, as it is highly
+
+
+
+Keranen & Kovatsch       Expires March 12, 2018                [Page 17]
+
+Internet-Draft       RESTful Design for IoT Systems       September 2017
+
+
    unlikely to observe the pressed state with a realistic polling
    interval.  When using CoAP Observe with Confirmable notifications,
    the server will usually send two notifications for the event that the
@@ -937,7 +974,7 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    the last counter increment in the state can help to suppress ringing
    a sound when the event has become obsolete.
 
-6.6.  Server Push
+6.3.  Server Push
 
    Observing State (asynchronous updates) of a resource
 
@@ -946,14 +983,6 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    This document does not define new functionality and therefore does
    not introduce new security concerns.  We assume that system designers
    apply classic Web security on top of the basic RESTful guidance given
-
-
-
-Keranen & Kovatsch       Expires March 12, 2018                [Page 17]
-
-Internet-Draft       RESTful Design for IoT Systems       September 2017
-
-
    in this document.  Thus, security protocols and considerations from
    related specifications apply to RESTful IoT design.  These include:
 
@@ -972,6 +1001,14 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    writing.  First specifications include:
 
    o  (D)TLS Profiles for the Internet of Things: [RFC7925]
+
+
+
+
+Keranen & Kovatsch       Expires March 12, 2018                [Page 18]
+
+Internet-Draft       RESTful Design for IoT Systems       September 2017
+
 
 8.  Acknowledgement
 
@@ -1002,14 +1039,6 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
               3986, DOI 10.17487/RFC3986, January 2005,
               <https://www.rfc-editor.org/info/rfc3986>.
 
-
-
-
-Keranen & Kovatsch       Expires March 12, 2018                [Page 18]
-
-Internet-Draft       RESTful Design for IoT Systems       September 2017
-
-
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246, DOI 10.17487/
               RFC5246, August 2008, <https://www.rfc-editor.org/info/
@@ -1029,6 +1058,13 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
    [RFC5988]  Nottingham, M., "Web Linking", RFC 5988, DOI 10.17487/
               RFC5988, October 2010, <https://www.rfc-editor.org/info/
               rfc5988>.
+
+
+
+Keranen & Kovatsch       Expires March 12, 2018                [Page 19]
+
+Internet-Draft       RESTful Design for IoT Systems       September 2017
+
 
    [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
@@ -1057,15 +1093,6 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
               RFC7641, September 2015, <https://www.rfc-editor.org/info/
               rfc7641>.
 
-
-
-
-
-Keranen & Kovatsch       Expires March 12, 2018                [Page 19]
-
-Internet-Draft       RESTful Design for IoT Systems       September 2017
-
-
    [W3C.REC-exi-20110310]
               Schneider, J. and T. Kamiya, "Efficient XML Interchange
               (EXI) Format 1.0", World Wide Web Consortium
@@ -1084,6 +1111,16 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
               "CoAP Content-Formats", n.d.,
               <http://www.iana.org/assignments/core-parameters/
               core-parameters.xhtml#content-formats>.
+
+
+
+
+
+
+Keranen & Kovatsch       Expires March 12, 2018                [Page 20]
+
+Internet-Draft       RESTful Design for IoT Systems       September 2017
+
 
    [IANA-media-types]
               "Media Types", n.d., <http://www.iana.org/assignments/
@@ -1111,17 +1148,6 @@ Internet-Draft       RESTful Design for IoT Systems       September 2017
               7320, DOI 10.17487/RFC7320, July 2014, <https://www.rfc-
               editor.org/info/rfc7320>.
 
-
-
-
-
-
-
-Keranen & Kovatsch       Expires March 12, 2018                [Page 20]
-
-Internet-Draft       RESTful Design for IoT Systems       September 2017
-
-
    [RFC7925]  Tschofenig, H., Ed. and T. Fossati, "Transport Layer
               Security (TLS) / Datagram Transport Layer Security (DTLS)
               Profiles for the Internet of Things", RFC 7925, DOI
@@ -1141,6 +1167,16 @@ Appendix A.  Future Work
 
    o  More information on how to design resources; choosing what is
       modeled as a resource, etc.
+
+
+
+
+
+
+Keranen & Kovatsch       Expires March 12, 2018                [Page 21]
+
+Internet-Draft       RESTful Design for IoT Systems       September 2017
+
 
 Authors' Addresses
 
@@ -1173,4 +1209,24 @@ Authors' Addresses
 
 
 
-Keranen & Kovatsch       Expires March 12, 2018                [Page 21]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Keranen & Kovatsch       Expires March 12, 2018                [Page 22]

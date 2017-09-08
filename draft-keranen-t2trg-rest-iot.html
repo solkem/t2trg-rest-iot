@@ -301,13 +301,14 @@ address {
 <link href="#rfc.section.5.3" rel="Chapter" title="5.3 At Runtime"/>
 <link href="#rfc.section.6" rel="Chapter" title="6 Design Patterns"/>
 <link href="#rfc.section.6.1" rel="Chapter" title="6.1 Collections"/>
-<link href="#rfc.section.6.2" rel="Chapter" title="6.2 Executing a Function"/>
-<link href="#rfc.section.6.3" rel="Chapter" title="6.3 Long-running Functions"/>
-<link href="#rfc.section.6.4" rel="Chapter" title="6.4 Conversion"/>
-<link href="#rfc.section.6.4.1" rel="Chapter" title="6.4.1 Text-to-Speech"/>
-<link href="#rfc.section.6.4.2" rel="Chapter" title="6.4.2 Speech-to-Text"/>
-<link href="#rfc.section.6.5" rel="Chapter" title="6.5 Events as State"/>
-<link href="#rfc.section.6.6" rel="Chapter" title="6.6 Server Push"/>
+<link href="#rfc.section.6.2" rel="Chapter" title="6.2 Calling a Function"/>
+<link href="#rfc.section.6.2.1" rel="Chapter" title="6.2.1 Instantly Returning Functions"/>
+<link href="#rfc.section.6.2.2" rel="Chapter" title="6.2.2 Long-running Functions"/>
+<link href="#rfc.section.6.2.3" rel="Chapter" title="6.2.3 Conversion"/>
+<link href="#rfc.section.6.2.4" rel="Chapter" title="6.2.4 Text-to-Speech Example"/>
+<link href="#rfc.section.6.2.5" rel="Chapter" title="6.2.5 Speech-to-Text Example"/>
+<link href="#rfc.section.6.2.6" rel="Chapter" title="6.2.6 Events as State"/>
+<link href="#rfc.section.6.3" rel="Chapter" title="6.3 Server Push"/>
 <link href="#rfc.section.7" rel="Chapter" title="7 Security Considerations"/>
 <link href="#rfc.section.8" rel="Chapter" title="8 Acknowledgement"/>
 <link href="#rfc.references" rel="Chapter" title="9 References"/>
@@ -409,13 +410,14 @@ address {
 <li>5.3.   <a href="#rfc.section.5.3">At Runtime</a></li>
 </ul><li>6.   <a href="#rfc.section.6">Design Patterns</a></li>
 <ul><li>6.1.   <a href="#rfc.section.6.1">Collections</a></li>
-<li>6.2.   <a href="#rfc.section.6.2">Executing a Function</a></li>
-<li>6.3.   <a href="#rfc.section.6.3">Long-running Functions</a></li>
-<li>6.4.   <a href="#rfc.section.6.4">Conversion</a></li>
-<ul><li>6.4.1.   <a href="#rfc.section.6.4.1">Text-to-Speech</a></li>
-<li>6.4.2.   <a href="#rfc.section.6.4.2">Speech-to-Text</a></li>
-</ul><li>6.5.   <a href="#rfc.section.6.5">Events as State</a></li>
-<li>6.6.   <a href="#rfc.section.6.6">Server Push</a></li>
+<li>6.2.   <a href="#rfc.section.6.2">Calling a Function</a></li>
+<ul><li>6.2.1.   <a href="#rfc.section.6.2.1">Instantly Returning Functions</a></li>
+<li>6.2.2.   <a href="#rfc.section.6.2.2">Long-running Functions</a></li>
+<li>6.2.3.   <a href="#rfc.section.6.2.3">Conversion</a></li>
+<li>6.2.4.   <a href="#rfc.section.6.2.4">Text-to-Speech Example</a></li>
+<li>6.2.5.   <a href="#rfc.section.6.2.5">Speech-to-Text Example</a></li>
+<li>6.2.6.   <a href="#rfc.section.6.2.6">Events as State</a></li>
+</ul><li>6.3.   <a href="#rfc.section.6.3">Server Push</a></li>
 </ul><li>7.   <a href="#rfc.section.7">Security Considerations</a></li>
 <li>8.   <a href="#rfc.section.8">Acknowledgement</a></li>
 <li>9.   <a href="#rfc.references">References</a></li>
@@ -446,7 +448,7 @@ address {
   <dt>Client:</dt>
   <dd style="margin-left: 8">A node that sends requests to servers and receives responses.</dd>
   <dt>Client State:</dt>
-  <dd style="margin-left: 8">The state kept by a client between requests. This typically includes the &#8220;current&#8221; resource, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval) and application-specific state. (Note that this is called &#8220;Application State&#8221; in <a href="#REST">[REST]</a>, which has some ambiguity in modern (IoT) systems where the overall state of the distributed application (i.e., application state) is reflected in the union of all Client States and Resource States of all clients and servers involved.)</dd>
+  <dd style="margin-left: 8">The state kept by a client between requests. This typically includes the currently processed representation, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval), and application-specific state (e.g., local variables). (Note that this is called &#8220;Application State&#8221; in <a href="#REST">[REST]</a>, which has some ambiguity in modern (IoT) systems where the overall state of the distributed application (i.e., application state) is reflected in the union of all Client States and Resource States of all clients and servers involved.)</dd>
   <dt>Content Negotiation:</dt>
   <dd style="margin-left: 8">The practice of determining the &#8220;best&#8221; representation for a client when examining the current state of a resource. The most common forms of content negotiation are Proactive Content Negotiation and Reactive Content Negotiation.</dd>
   <dt>Form:</dt>
@@ -549,9 +551,10 @@ address {
 </pre>
 <p class="figure">Figure 4: Constrained RESTful environments</p>
 <h1 id="rfc.section.3.2"><a href="#rfc.section.3.2">3.2.</a> <a href="#system-design" id="system-design">System design</a></h1>
-<p id="rfc.section.3.2.p.1">When designing a RESTful system, the state of the distributed application must be assigned to the different components.  Here, it is important to distinguish between &#8220;client state&#8221; and &#8220;resource state&#8221;.</p>
-<p id="rfc.section.3.2.p.2">Client state encompasses the control flow and the interactions between the components (see <a href="#sec-terms">Section 2</a>).  Following the Stateless constraint, the client state must be kept only on clients.  That is, there is no establishment of shared information about future interactions between client and server (usually called a session).  On the one hand, this makes requests a bit more verbose since every request must contain all the information necessary to process it.  On the other hand, this makes servers efficient and scalable, since they do not have to keep any state about their clients.  Requests can easily be distributed over multiple worker threads or server instances.  For the IoT systems, it lowers the memory requirements for server implementations, which is particularly important for constrained servers (e.g., sensor nodes) and servers serving large amount of clients (e.g., Resource Directory).</p>
-<p id="rfc.section.3.2.p.3">Resource state includes the more persistent data of an application (i.e., independent of the client control flow and lifetime).  This can be static data such as device descriptions, persistent data such as system configuration, but also dynamic data such as the current value of a sensor on a thing.</p>
+<p id="rfc.section.3.2.p.1">When designing a RESTful system, the primary effort goes into modeling the state of the distributed application and assigning it to the different components (i.e., clients and servers).  How clients can navigate through the resources and modify state to achieve their goals is defined through hypermedia controls, that is, links and forms.  Hypermedia controls span a kind of a state machine where the nodes are resources and the transitions are links or forms.  Clients run this state machine (i.e., the application) by retrieving representations, processing the data, and following the included hypermedia controls.  In REST, remote state is changed by submitting forms.  This is usually done by retrieving the current state, modifying the state on the client side, and transfering the new state to the server in the form of new representations &#8211; rather then calling a service and modifying the state on the server side.</p>
+<p id="rfc.section.3.2.p.2">Client state encompasses the current state of the described state machine and the possible next transitions derived from the hypermedia controls within the currently processed representation (see <a href="#sec-terms">Section 2</a>).  Furthermore, clients can have part of the state of the distributed application in local variables.</p>
+<p id="rfc.section.3.2.p.3">Resource state includes the more persistent data of an application (i.e., independent of individual clients).  This can be static data such as device descriptions, persistent data such as system configurations, but also dynamic data such as the current value of a sensor on a thing.</p>
+<p id="rfc.section.3.2.p.4">It is important to distinguish between &#8220;client state&#8221; and &#8220;resource state&#8221; and keep it separate.  Following the Stateless constraint, the client state must be kept only on clients.  That is, there is no establishment of shared information about past and future interactions between client and server (usually called a session).  On the one hand, this makes requests a bit more verbose since every request must contain all the information necessary to process it.  On the other hand, this makes servers efficient and scalable, since they do not have to keep any state about their clients.  Requests can easily be distributed over multiple worker threads or server instances.  For the IoT systems, it lowers the memory requirements for server implementations, which is particularly important for constrained servers (e.g., sensor nodes) and servers serving large amount of clients (e.g., Resource Directory).</p>
 <h1 id="rfc.section.3.3"><a href="#rfc.section.3.3">3.3.</a> <a href="#sec-uris" id="sec-uris">Uniform Resource Identifiers (URIs)</a></h1>
 <p id="rfc.section.3.3.p.1">An important part of RESTful API design is to model the system as a set of resources whose state can be retrieved and/or modified and where resources can be potentially also created and/or deleted.</p>
 <p id="rfc.section.3.3.p.2">Uniform Resource Identifiers (URIs) are used to indicate a resource for interaction, to reference a resource from another resource, to advertise or bookmark a resource, or to index a resource by search engines.</p>
@@ -569,7 +572,7 @@ scheme     authority       path        query   fragment
 <h1 id="rfc.section.3.5"><a href="#rfc.section.3.5">3.5.</a> <a href="#sec-methods" id="sec-methods">HTTP/CoAP Methods</a></h1>
 <p id="rfc.section.3.5.p.1">Section 4.3 of <a href="#RFC7231">[RFC7231]</a> defines the set of methods in HTTP; Section 5.8 of <a href="#RFC7252">[RFC7252]</a> defines the set of methods in CoAP.  As part of the Uniform Interface constraint, each method can have certain properties that give guarantees to clients: Safe methods do not cause any state change on the origin server when applied to a resource.  Idempotent methods can be applied multiple times to the same resource while causing the same visible resource state as a single such request.  The following lists the most relevant methods and gives a short explanation of their semantics.</p>
 <h1 id="rfc.section.3.5.1"><a href="#rfc.section.3.5.1">3.5.1.</a> <a href="#get" id="get">GET</a></h1>
-<p id="rfc.section.3.5.1.p.1">The GET method requests a current representation for the target resource.  Only the origin server needs to know how each of its resource identifiers corresponds to an implementation and how each implementation manages to select and send a current representation of the target resource in a response to GET.</p>
+<p id="rfc.section.3.5.1.p.1">The GET method requests a current representation for the target resource, while the origin server must ensure that there are no side-effects on the resource state.  Only the origin server needs to know how each of its resource identifiers corresponds to an implementation and how each implementation manages to select and send a current representation of the target resource in a response to GET.</p>
 <p id="rfc.section.3.5.1.p.2">A payload within a GET request message has no defined semantics.</p>
 <p id="rfc.section.3.5.1.p.3">The GET method is safe and idempotent.</p>
 <h1 id="rfc.section.3.5.2"><a href="#rfc.section.3.5.2">3.5.2.</a> <a href="#post" id="post">POST</a></h1>
@@ -660,19 +663,22 @@ scheme     authority       path        query   fragment
 <p id="rfc.section.6.p.1">Some classes of interaction with an IoT REST system are straighforward to design; a classic example of reading a temperature from a thermometer device is almost always implemented as a GET request to a resource that represents the current value of the thermometer. However, certain types of interaction, for example data conversions or event handling, do not have as straighforward and well established ways to represent the logic with resources and REST methods.</p>
 <p id="rfc.section.6.p.2">The following sections describe how such interactions can be modeled in a RESTful system and what are the benefits of different approaches.</p>
 <h1 id="rfc.section.6.1"><a href="#rfc.section.6.1">6.1.</a> <a href="#collections" id="collections">Collections</a></h1>
-<h1 id="rfc.section.6.2"><a href="#rfc.section.6.2">6.2.</a> <a href="#executing-a-function" id="executing-a-function">Executing a Function</a></h1>
-<h1 id="rfc.section.6.3"><a href="#rfc.section.6.3">6.3.</a> <a href="#long-running-functions" id="long-running-functions">Long-running Functions</a></h1>
-<h1 id="rfc.section.6.4"><a href="#rfc.section.6.4">6.4.</a> <a href="#conversion" id="conversion">Conversion</a></h1>
-<p id="rfc.section.6.4.p.1">GET is cachable, good for static information such as look-up tables POST if the payload is large or binary, also good for time-dependent information</p>
-<h1 id="rfc.section.6.4.1"><a href="#rfc.section.6.4.1">6.4.1.</a> <a href="#text-to-speech" id="text-to-speech">Text-to-Speech</a></h1>
-<h1 id="rfc.section.6.4.2"><a href="#rfc.section.6.4.2">6.4.2.</a> <a href="#speech-to-text" id="speech-to-text">Speech-to-Text</a></h1>
-<h1 id="rfc.section.6.5"><a href="#rfc.section.6.5">6.5.</a> <a href="#events-as-state" id="events-as-state">Events as State</a></h1>
-<p id="rfc.section.6.5.p.1">In event-centric paradigms such as pub/sub, events are usually represented by an incoming message that might be even be identical for each occurance.  Since the messages are queued, the receiver is aware of each occurance of the event and can react accordingly.  In such systems, ringing a door bell, for instance, would result in a message being sent that represents the event that it was rung.</p>
-<p id="rfc.section.6.5.p.2">In resouce-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have lead to that state.  In a naive yet natural yet, a door bell could be modelled as a resource that can have the states unpressed and pressed.  There are, however, a few issues with this approach.  Polling is not an option, as it is highly unlikely to observe the pressed state with a realistic polling interval.  When using CoAP Observe with Confirmable notifications, the server will usually send two notifications for the event that the door bell was pressed: notification for changing from unpressed to pressed and another one for changing back to unpressed.  If the time between the state changes is very short, the server might drop the first notification, as Observe only guarantees only eventual consistency (see Section 1.3 of <a href="#RFC7641">[RFC7641]</a>).</p>
-<p id="rfc.section.6.5.p.3">The solution is to pick a state model that fits better to the application.  In the case of the door bell &#8211; and many other event-driven resources &#8211; it could be a counter that counts how often the bell was pressed.  The corresponding action is taken each time the client observes a change in the received representation.</p>
-<p id="rfc.section.6.5.p.4">In the case of a network outage, this could lead to a ringing sound 10 minutes after the bell was rung.  Also including a timestamp of the last counter increment in the state can help to suppress ringing a sound when the event has become obsolete.</p>
-<h1 id="rfc.section.6.6"><a href="#rfc.section.6.6">6.6.</a> <a href="#server-push" id="server-push">Server Push</a></h1>
-<p id="rfc.section.6.6.p.1">Observing State (asynchronous updates) of a resource</p>
+<h1 id="rfc.section.6.2"><a href="#rfc.section.6.2">6.2.</a> <a href="#calling-a-function" id="calling-a-function">Calling a Function</a></h1>
+<p id="rfc.section.6.2.p.1">To modify resource state, clients usually GET a representation from the server, process it locally, and transfer the resulting state back to the server with a PUT.  Sometimes, however, the state can only be modified on the server side, for instance, because representations would be too large to transfer or part of the required information shall not be accessible to clients.</p>
+<p id="rfc.section.6.2.p.2">In this case, resource state is modified by calling a function.  This is usually modeled with a POST request, as it leaves the behavior semantics completely to the server.</p>
+<h1 id="rfc.section.6.2.1"><a href="#rfc.section.6.2.1">6.2.1.</a> <a href="#instantly-returning-functions" id="instantly-returning-functions">Instantly Returning Functions</a></h1>
+<h1 id="rfc.section.6.2.2"><a href="#rfc.section.6.2.2">6.2.2.</a> <a href="#long-running-functions" id="long-running-functions">Long-running Functions</a></h1>
+<h1 id="rfc.section.6.2.3"><a href="#rfc.section.6.2.3">6.2.3.</a> <a href="#conversion" id="conversion">Conversion</a></h1>
+<p id="rfc.section.6.2.3.p.1">GET is cachable, good for static information such as look-up tables POST if the payload is large or binary, also good for time-dependent information</p>
+<h1 id="rfc.section.6.2.4"><a href="#rfc.section.6.2.4">6.2.4.</a> <a href="#text-to-speech-example" id="text-to-speech-example">Text-to-Speech Example</a></h1>
+<h1 id="rfc.section.6.2.5"><a href="#rfc.section.6.2.5">6.2.5.</a> <a href="#speech-to-text-example" id="speech-to-text-example">Speech-to-Text Example</a></h1>
+<h1 id="rfc.section.6.2.6"><a href="#rfc.section.6.2.6">6.2.6.</a> <a href="#events-as-state" id="events-as-state">Events as State</a></h1>
+<p id="rfc.section.6.2.6.p.1">In event-centric paradigms such as pub/sub, events are usually represented by an incoming message that might be even be identical for each occurance.  Since the messages are queued, the receiver is aware of each occurance of the event and can react accordingly.  In such systems, ringing a door bell, for instance, would result in a message being sent that represents the event that it was rung.</p>
+<p id="rfc.section.6.2.6.p.2">In resouce-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have lead to that state.  In a naive yet natural yet, a door bell could be modelled as a resource that can have the states unpressed and pressed.  There are, however, a few issues with this approach.  Polling is not an option, as it is highly unlikely to observe the pressed state with a realistic polling interval.  When using CoAP Observe with Confirmable notifications, the server will usually send two notifications for the event that the door bell was pressed: notification for changing from unpressed to pressed and another one for changing back to unpressed.  If the time between the state changes is very short, the server might drop the first notification, as Observe only guarantees only eventual consistency (see Section 1.3 of <a href="#RFC7641">[RFC7641]</a>).</p>
+<p id="rfc.section.6.2.6.p.3">The solution is to pick a state model that fits better to the application.  In the case of the door bell &#8211; and many other event-driven resources &#8211; it could be a counter that counts how often the bell was pressed.  The corresponding action is taken each time the client observes a change in the received representation.</p>
+<p id="rfc.section.6.2.6.p.4">In the case of a network outage, this could lead to a ringing sound 10 minutes after the bell was rung.  Also including a timestamp of the last counter increment in the state can help to suppress ringing a sound when the event has become obsolete.</p>
+<h1 id="rfc.section.6.3"><a href="#rfc.section.6.3">6.3.</a> <a href="#server-push" id="server-push">Server Push</a></h1>
+<p id="rfc.section.6.3.p.1">Observing State (asynchronous updates) of a resource</p>
 <h1 id="rfc.section.7"><a href="#rfc.section.7">7.</a> <a href="#sec-sec" id="sec-sec">Security Considerations</a></h1>
 <p id="rfc.section.7.p.1">This document does not define new functionality and therefore does not introduce new security concerns.  We assume that system designers apply classic Web security on top of the basic RESTful guidance given in this document.  Thus, security protocols and considerations from related specifications apply to RESTful IoT design.  These include:</p>
 <p/>
