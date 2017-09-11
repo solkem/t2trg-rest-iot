@@ -23,12 +23,13 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    right: calc(50vw - 525px);
+    right: calc(50vw - 500px);
     width: 300px;
+    padding: 0 1em;
     z-index: 1;
   }
   #rfc\.toc {
-    top: 15px;
+    top: 16px;
   }
   ul.toc {
     top: 80px;
@@ -36,7 +37,8 @@
   }
 
   body {
-    padding-right: 350px;
+    padding-left: 1.5em;
+    padding-right: 29em;
   }
 }
 
@@ -45,7 +47,7 @@ body {
   color: #333;
   font-size-adjust: 0.5;
   line-height: 130%;
-  margin: 25px auto;
+  margin: 2.5em auto;
   max-width: 724px;
 }
 
@@ -297,17 +299,15 @@ address {
 <link href="#rfc.section.4.6" rel="Chapter" title="4.6 Code-on-Demand"/>
 <link href="#rfc.section.5" rel="Chapter" title="5 Hypermedia-driven Applications"/>
 <link href="#rfc.section.5.1" rel="Chapter" title="5.1 Motivation"/>
-<link href="#rfc.section.5.2" rel="Chapter" title="5.2 A Priori"/>
-<link href="#rfc.section.5.3" rel="Chapter" title="5.3 At Runtime"/>
+<link href="#rfc.section.5.2" rel="Chapter" title="5.2 Knowledge"/>
+<link href="#rfc.section.5.3" rel="Chapter" title="5.3 Interaction"/>
 <link href="#rfc.section.6" rel="Chapter" title="6 Design Patterns"/>
 <link href="#rfc.section.6.1" rel="Chapter" title="6.1 Collections"/>
-<link href="#rfc.section.6.2" rel="Chapter" title="6.2 Calling a Function"/>
-<link href="#rfc.section.6.2.1" rel="Chapter" title="6.2.1 Instantly Returning Functions"/>
-<link href="#rfc.section.6.2.2" rel="Chapter" title="6.2.2 Long-running Functions"/>
+<link href="#rfc.section.6.2" rel="Chapter" title="6.2 Calling a Procedure"/>
+<link href="#rfc.section.6.2.1" rel="Chapter" title="6.2.1 Instantly Returning Procedures"/>
+<link href="#rfc.section.6.2.2" rel="Chapter" title="6.2.2 Long-running Procedures"/>
 <link href="#rfc.section.6.2.3" rel="Chapter" title="6.2.3 Conversion"/>
-<link href="#rfc.section.6.2.4" rel="Chapter" title="6.2.4 Text-to-Speech Example"/>
-<link href="#rfc.section.6.2.5" rel="Chapter" title="6.2.5 Speech-to-Text Example"/>
-<link href="#rfc.section.6.2.6" rel="Chapter" title="6.2.6 Events as State"/>
+<link href="#rfc.section.6.2.4" rel="Chapter" title="6.2.4 Events as State"/>
 <link href="#rfc.section.6.3" rel="Chapter" title="6.3 Server Push"/>
 <link href="#rfc.section.7" rel="Chapter" title="7 Security Considerations"/>
 <link href="#rfc.section.8" rel="Chapter" title="8 Acknowledgement"/>
@@ -318,12 +318,12 @@ address {
 <link href="#rfc.authors" rel="Chapter"/>
 
 
-  <meta name="generator" content="xml2rfc version 2.5.0 - http://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.4.10 - http://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
-  <meta name="dct.creator" content="Keranen, A. and M. Kovatsch" />
+  <meta name="dct.creator" content="Keranen, A., Kovatsch, M., and K. Hartke" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-keranen-t2trg-rest-iot-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-9-08" />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-9-11" />
   <meta name="dct.abstract" content="This document gives guidance for designing Internet of Things (IoT) systems that follow the principles of the Representational State Transfer (REST) architectural style." />
   <meta name="description" content="This document gives guidance for designing Internet of Things (IoT) systems that follow the principles of the Representational State Transfer (REST) architectural style." />
 
@@ -347,12 +347,20 @@ address {
   <td class="right">M. Kovatsch</td>
 </tr>
 <tr>
-  <td class="left">Expires: March 12, 2018</td>
+  <td class="left">Expires: March 15, 2018</td>
   <td class="right">ETH Zurich</td>
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">September 08, 2017</td>
+  <td class="right">K. Hartke</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">Universitaet Bremen TZI</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">September 11, 2017</td>
 </tr>
 
     	
@@ -372,7 +380,7 @@ address {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on March 12, 2018.</p>
+<p>This Internet-Draft will expire on March 15, 2018.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -406,17 +414,15 @@ address {
 <li>4.6.   <a href="#rfc.section.4.6">Code-on-Demand</a></li>
 </ul><li>5.   <a href="#rfc.section.5">Hypermedia-driven Applications</a></li>
 <ul><li>5.1.   <a href="#rfc.section.5.1">Motivation</a></li>
-<li>5.2.   <a href="#rfc.section.5.2">A Priori</a></li>
-<li>5.3.   <a href="#rfc.section.5.3">At Runtime</a></li>
+<li>5.2.   <a href="#rfc.section.5.2">Knowledge</a></li>
+<li>5.3.   <a href="#rfc.section.5.3">Interaction</a></li>
 </ul><li>6.   <a href="#rfc.section.6">Design Patterns</a></li>
 <ul><li>6.1.   <a href="#rfc.section.6.1">Collections</a></li>
-<li>6.2.   <a href="#rfc.section.6.2">Calling a Function</a></li>
-<ul><li>6.2.1.   <a href="#rfc.section.6.2.1">Instantly Returning Functions</a></li>
-<li>6.2.2.   <a href="#rfc.section.6.2.2">Long-running Functions</a></li>
+<li>6.2.   <a href="#rfc.section.6.2">Calling a Procedure</a></li>
+<ul><li>6.2.1.   <a href="#rfc.section.6.2.1">Instantly Returning Procedures</a></li>
+<li>6.2.2.   <a href="#rfc.section.6.2.2">Long-running Procedures</a></li>
 <li>6.2.3.   <a href="#rfc.section.6.2.3">Conversion</a></li>
-<li>6.2.4.   <a href="#rfc.section.6.2.4">Text-to-Speech Example</a></li>
-<li>6.2.5.   <a href="#rfc.section.6.2.5">Speech-to-Text Example</a></li>
-<li>6.2.6.   <a href="#rfc.section.6.2.6">Events as State</a></li>
+<li>6.2.4.   <a href="#rfc.section.6.2.4">Events as State</a></li>
 </ul><li>6.3.   <a href="#rfc.section.6.3">Server Push</a></li>
 </ul><li>7.   <a href="#rfc.section.7">Security Considerations</a></li>
 <li>8.   <a href="#rfc.section.8">Acknowledgement</a></li>
@@ -564,11 +570,23 @@ address {
    |           |            |            |        |
 scheme     authority       path        query   fragment
 </pre>
-<p id="rfc.section.3.3.p.3">A URI is a sequence of characters that matches the syntax defined in <a href="#RFC3986">[RFC3986]</a>. It consists of a hierarchical sequence of five components: scheme, authority, path, query, and fragment (from most significant to least significant). A scheme creates a namespace for resources and defines how the following components identify a resource within that namespace. The authority identifies an entity that governs part of the namespace, such as the server &#8220;www.example.org&#8221; in the &#8220;http&#8221; scheme. A host name (e.g., a fully qualified domain name) or an IP address, potentially followed by a transport layer port number, are usually used in the authority component for the &#8220;http&#8221; and &#8220;coap&#8221; schemes. The path and query contain data to identify a resource within the scope of the URI&#8217;s scheme and naming authority. The fragment allows to refer to some portion of the resource, such as a section in an HTML document. However, fragments are processed only at client side and not sent on the wire. <a href="#RFC7320">[RFC7320]</a> provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.</p>
-<p id="rfc.section.3.3.p.4">For RESTful IoT applications, typical schemes include &#8220;https&#8221;, &#8220;coaps&#8221;, &#8220;http&#8221;, and &#8220;coap&#8221;. These refer to HTTP and CoAP, with and without Transport Layer Security (TLS) <a href="#RFC5246">[RFC5246]</a>. (CoAP uses Datagram TLS (DTLS) <a href="#RFC6347">[RFC6347]</a>, the variant of TLS for UDP.) These four schemes also provide means for locating the resource; using the HTTP protocol for &#8220;http&#8221; and &#8220;https&#8221;, and with the CoAP protocol for &#8220;coap&#8221; and &#8220;coaps&#8221;. If the scheme is different for two URIs (e.g., &#8220;coap&#8221; vs. &#8220;coaps&#8221;), it is important to note that even if the rest of the URI is identical, these are two different resources, in two distinct namespaces.</p>
-<p id="rfc.section.3.3.p.5">The query parameters can be used to parametrize the resource. For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response). Query parameters in PUT and POST requests do not have such established semantics and are not commonly used.  Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered e.g., by proxies. Therefore applications should not rely on their order; see Section 3.3 of <a href="#RFC6943">[RFC6943]</a> for more details.</p>
+<p id="rfc.section.3.3.p.3">A URI is a sequence of characters that matches the syntax defined in <a href="#RFC3986">[RFC3986]</a>.  It consists of a hierarchical sequence of five components: scheme, authority, path, query, and fragment (from most significant to least significant).  A scheme creates a namespace for resources and defines how the following components identify a resource within that namespace.  The authority identifies an entity that governs part of the namespace, such as the server &#8220;www.example.org&#8221; in the &#8220;http&#8221; scheme.  A host name (e.g., a fully qualified domain name) or an IP address, potentially followed by a transport layer port number, are usually used in the authority component for the &#8220;http&#8221; and &#8220;coap&#8221; schemes.  The path and query contain data to identify a resource within the scope of the URI&#8217;s scheme and naming authority.  The fragment allows to refer to some portion of the resource, such as a section in an HTML document.  However, fragments are processed only at client side and not sent on the wire.  <a href="#RFC7320">[RFC7320]</a> provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.</p>
+<p id="rfc.section.3.3.p.4">For RESTful IoT applications, typical schemes include &#8220;https&#8221;, &#8220;coaps&#8221;, &#8220;http&#8221;, and &#8220;coap&#8221;.  These refer to HTTP and CoAP, with and without Transport Layer Security (TLS) <a href="#RFC5246">[RFC5246]</a>.  (CoAP uses Datagram TLS (DTLS) <a href="#RFC6347">[RFC6347]</a>, the variant of TLS for UDP.) These four schemes also provide means for locating the resource; using the HTTP protocol for &#8220;http&#8221; and &#8220;https&#8221;, and with the CoAP protocol for &#8220;coap&#8221; and &#8220;coaps&#8221;.  If the scheme is different for two URIs (e.g., &#8220;coap&#8221; vs. &#8220;coaps&#8221;), it is important to note that even if the rest of the URI is identical, these are two different resources, in two distinct namespaces.</p>
+<p id="rfc.section.3.3.p.5">The query parameters can be used to parametrize the resource.  For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response).  Query parameters in PUT and POST requests do not have such established semantics and are not commonly used.  Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered e.g., by proxies.  Therefore applications should not rely on their order; see Section 3.3 of <a href="#RFC6943">[RFC6943]</a> for more details.</p>
 <h1 id="rfc.section.3.4"><a href="#rfc.section.3.4">3.4.</a> <a href="#representations" id="representations">Representations</a></h1>
-<p id="rfc.section.3.4.p.1">Clients can retrieve the resource state from an origin server or manipulate resource state on the origin server by transferring resource representations.  Resource representations have a media type that tells how the representation should be interpreted by identifying the representation format used.  Typical media types for IoT systems include &#8220;text/plain&#8221; for simple UTF-8 text, &#8220;application/octet-stream&#8221; for arbitrary binary data, &#8220;application/json&#8221; for the JSON format <a href="#RFC7159">[RFC7159]</a>, &#8220;application/senml+json&#8221; <a href="#I-D.ietf-core-senml">[I-D.ietf-core-senml]</a> for Sensor Markup Language (SenML) formatted data, &#8220;application/cbor&#8221; for CBOR <a href="#RFC7049">[RFC7049]</a>, and &#8220;application/exi&#8221; for EXI <a href="#W3C.REC-exi-20110310">[W3C.REC-exi-20110310]</a>.  A full list of registered Internet Media Types is available at the IANA registry <a href="#IANA-media-types">[IANA-media-types]</a> and numerical media types registered for use with CoAP are listed at CoAP Content-Formats IANA registry <a href="#IANA-CoAP-media">[IANA-CoAP-media]</a>.</p>
+<p id="rfc.section.3.4.p.1">Clients can retrieve the resource state from an origin server or manipulate resource state on the origin server by transferring resource representations.  Resource representations have a media type that tells how the representation should be interpreted by identifying the representation format used.</p>
+<p id="rfc.section.3.4.p.2">Typical media types for IoT systems include:</p>
+<p/>
+
+<ul>
+  <li>&#8220;text/plain&#8221; for simple UTF-8 text</li>
+  <li>&#8220;application/octet-stream&#8221; for arbitrary binary data</li>
+  <li>&#8220;application/json&#8221; for the JSON format <a href="#RFC7159">[RFC7159]</a></li>
+  <li>&#8220;application/senml+json&#8221; <a href="#I-D.ietf-core-senml">[I-D.ietf-core-senml]</a> for Sensor Markup Language (SenML) formatted data</li>
+  <li>&#8220;application/cbor&#8221; for CBOR <a href="#RFC7049">[RFC7049]</a></li>
+  <li>&#8220;application/exi&#8221; for EXI <a href="#W3C.REC-exi-20110310">[W3C.REC-exi-20110310]</a></li>
+</ul>
+<p id="rfc.section.3.4.p.4">A full list of registered Internet Media Types is available at the IANA registry <a href="#IANA-media-types">[IANA-media-types]</a> and numerical media types registered for use with CoAP are listed at CoAP Content-Formats IANA registry <a href="#IANA-CoAP-media">[IANA-CoAP-media]</a>.</p>
 <h1 id="rfc.section.3.5"><a href="#rfc.section.3.5">3.5.</a> <a href="#sec-methods" id="sec-methods">HTTP/CoAP Methods</a></h1>
 <p id="rfc.section.3.5.p.1">Section 4.3 of <a href="#RFC7231">[RFC7231]</a> defines the set of methods in HTTP; Section 5.8 of <a href="#RFC7252">[RFC7252]</a> defines the set of methods in CoAP.  As part of the Uniform Interface constraint, each method can have certain properties that give guarantees to clients: Safe methods do not cause any state change on the origin server when applied to a resource.  Idempotent methods can be applied multiple times to the same resource while causing the same visible resource state as a single such request.  The following lists the most relevant methods and gives a short explanation of their semantics.</p>
 <h1 id="rfc.section.3.5.1"><a href="#rfc.section.3.5.1">3.5.1.</a> <a href="#get" id="get">GET</a></h1>
@@ -615,18 +633,19 @@ scheme     authority       path        query   fragment
 <h1 id="rfc.section.4.3"><a href="#rfc.section.4.3">4.3.</a> <a href="#cache" id="cache">Cache</a></h1>
 <p id="rfc.section.4.3.p.1">This constraint requires responses to have implicit or explicit cache-control metadata.  This enables clients and intermediary to store responses and re-use them to locally answer future requests.  The cache-control metadata is necessary to decide whether the information in the cached response is still fresh or stale and needs to be discarded.</p>
 <p id="rfc.section.4.3.p.2">Cache improves performance, as less data needs to be transferred and response times can be reduced significantly.  Less transfers also improves scalability, as origin servers can be protected from too many requests.  Local caches furthermore improve reliability, since requests can be answered even if the origin server is temporarily not available.</p>
-<h1 id="rfc.section.4.4"><a href="#rfc.section.4.4">4.4.</a> <a href="#uniform-interface" id="uniform-interface">Uniform Interface</a></h1>
-<p id="rfc.section.4.4.p.1">RESTful APIs all use the same interface independent of the application.  It is defined by:</p>
+<h1 id="rfc.section.4.4"><a href="#rfc.section.4.4">4.4.</a> <a href="#sec-uniform-interface" id="sec-uniform-interface">Uniform Interface</a></h1>
+<p id="rfc.section.4.4.p.1">All RESTful APIs use the same, uniform interface independent of the application.  This simple interaction model is enabled by exchanging representations and modifying state locally, which simplifies the interface between clients and servers to a small set of methods to retrieve, update, and delete state &#8211; which applies to all applications.  In a service-oriented RPC approach, all required ways to modify state need to be modeled explicitly in the interface resulting in a large set of methods &#8211; which differs from application to application.  Moreover, it is also likely that different parties come up with different ways how to modify state, including the naming of the procedures, while the state within an application is a bit easier to agree on.</p>
+<p id="rfc.section.4.4.p.2">A REST interface is fully defined by:</p>
 <p/>
 
 <ul>
   <li>URIs to identify resources</li>
-  <li>representation formats to retrieve and manipulate resource state</li>
+  <li>representation formats to represent (and retrieve and manipulate) resource state</li>
   <li>self-descriptive messages with a standard set of methods (e.g., GET, POST, PUT, DELETE with their guaranteed properties)</li>
   <li>hypermedia controls within representations</li>
 </ul>
-<p id="rfc.section.4.4.p.3">The concept of hypermedia controls is also known as HATEOAS: hypermedia as the engine of application state.  The origin server embeds controls for the interface into its representations and thereby informs the client about possible requests.  The mostly used control for RESTful systems is Web Linking <a href="#RFC5590">[RFC5590]</a>.  Hypermedia forms are more powerful controls that describe how to construct more complex requests, including representations to modify resource state.</p>
-<p id="rfc.section.4.4.p.4">While this is the most complex constraints (in particular the hypermedia controls), it improves many different key properties.  It improves simplicity, as uniform interfaces are easier to understand.  The self-descriptive messages improve visibility.  The limitation to a known set of representation formats fosters portability.  Most of all, however, this constraint is the key to modifiability, as hypermedia-driven, uniform interfaces allow clients and servers to evolve independently, and hence enable a system to evolve.</p>
+<p id="rfc.section.4.4.p.4">The concept of hypermedia controls is also known as HATEOAS: Hypermedia As The Engine Of Application State.  The origin server embeds controls for the interface into its representations and thereby informs the client about possible next requests.  The mostly used control for RESTful systems is Web Linking <a href="#RFC5590">[RFC5590]</a>.  Hypermedia forms are more powerful controls that describe how to construct more complex requests, including representations to modify resource state.</p>
+<p id="rfc.section.4.4.p.5">While this is the most complex constraints (in particular the hypermedia controls), it improves many different key properties.  It improves simplicity, as uniform interfaces are easier to understand.  The self-descriptive messages improve visibility.  The limitation to a known set of representation formats fosters portability.  Most of all, however, this constraint is the key to modifiability, as hypermedia-driven, uniform interfaces allow clients and servers to evolve independently, and hence enable a system to evolve.</p>
 <h1 id="rfc.section.4.5"><a href="#rfc.section.4.5">4.5.</a> <a href="#layered-system" id="layered-system">Layered System</a></h1>
 <p id="rfc.section.4.5.p.1">This constraint enforces that a client cannot see beyond the server with which it is interacting.</p>
 <p id="rfc.section.4.5.p.2">A layered system is easier to modify, as topology changes become transparent.  Furthermore, this helps scalability, as intermediaries such as load balancers can be introduced without changing the client side.  The clean separation of concerns helps with simplicity.</p>
@@ -636,16 +655,19 @@ scheme     authority       path        query   fragment
 <h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#hypermedia-driven-applications" id="hypermedia-driven-applications">Hypermedia-driven Applications</a></h1>
 <p id="rfc.section.5.p.1">Hypermedia-driven applications take advantage of hypermedia controls, i.e., links and forms, embedded in the resource representations.  A hypermedia client is a client that is capable of processing these hypermedia controls.  Hypermedia links can be used to give additional information about a resource representation (e.g., the source URI of the representation) or pointing to other resources.  The forms can be used to describe the structure of the data that can be sent (e.g., with a POST or PUT method) to a server, or how a data retrieval (e.g., GET) request for a resource should be formed.  In a hypermedia-driven application the client interacts with the server using only the hypermedia controls, instead of selecting methods and/or constructing URIs based on out-of-band information, such as API documentation.</p>
 <h1 id="rfc.section.5.1"><a href="#rfc.section.5.1">5.1.</a> <a href="#motivation" id="motivation">Motivation</a></h1>
-<p id="rfc.section.5.1.p.1">Evolvability, Decoupling (server and client from different vendors), Extensibility at runtime.</p>
+<p id="rfc.section.5.1.p.1">The advantage of this approach is increased evolvability and extensibility.  This is important in scenarios where servers exhibit a range of feature variations, where it&#8217;s expensive to keep evolving client knowledge and server knowledge in sync all the time, or where there are many different client and server implementations.  Hypermedia controls serve as indicators in capability negotiation.  In particular, they describe available resources and possible operations on these resources using links and forms, respectively.</p>
+<p id="rfc.section.5.1.p.2">There are multiple reasons why a server might introduce new links or forms:</p>
 <p/>
 
 <ul>
-  <li>The server implements a newer version of the application. Older clients ignore the new links and forms, while newer clients are able to take advantage of the new features by following the new links and submitting the new forms.</li>
-  <li>The server offers links and forms depending on the current state. The server can tell the client which operations are currently valid and thus help the client navigate the application state machine. The client does not have to have knowledge which operations are allowed in the current state or make a request just to find out that the operation is not valid.</li>
-  <li>The server offers links and forms depending on the client&#8217;s access control rights. If the client is unauthorized to perform a certain operation, then the server can simply omit the links and forms for that operation.</li>
+  <li>The server implements a newer version of the application.  Older clients ignore the new links and forms, while newer clients are able to take advantage of the new features by following the new links and submitting the new forms.</li>
+  <li>The server offers links and forms depending on the current state.  The server can tell the client which operations are currently valid and thus help the client navigate the application state machine.  The client does not have to have knowledge which operations are allowed in the current state or make a request just to find out that the operation is not valid.</li>
+  <li>The server offers links and forms depending on the client&#8217;s access control rights.  If the client is unauthorized to perform a certain operation, then the server can simply omit the links and forms for that operation.</li>
 </ul>
-<h1 id="rfc.section.5.2"><a href="#rfc.section.5.2">5.2.</a> <a href="#a-priori" id="a-priori">A Priori</a></h1>
-<p id="rfc.section.5.2.p.1">Knowledge that needs to be shared a priori among all participants of a REST system.</p>
+<h1 id="rfc.section.5.2"><a href="#rfc.section.5.2">5.2.</a> <a href="#knowledge" id="knowledge">Knowledge</a></h1>
+<p id="rfc.section.5.2.p.1">A client needs to have knowledge of a couple of things for successful interaction with a server.  This includes what resources are available, what representations of resource states are available, what each representation describes, how to retrieve a representation, what state changing operations on a resource are possible, how to perform these operations, and so on.</p>
+<p id="rfc.section.5.2.p.2">Some part of this knowledge, such as how to retrieve the representation of a resource state, is typically hard-coded in the client software.  For other parts, a choice can often be made between hard-coding the knowledge or acquiring it on-demand.  The key to success in either case is the use in-band information for identifying the knowledge that is required.  This enables the client to verify that is has all required knowledge and to acquire missing knowledge on-demand.</p>
+<p id="rfc.section.5.2.p.3">A hypermedia-driven application typically uses the following identifiers:</p>
 <p/>
 
 <ul>
@@ -653,30 +675,32 @@ scheme     authority       path        query   fragment
   <li>Internet Media Types that identify representation formats,</li>
   <li>link relation types or resource types that identify link semantics,</li>
   <li>form relation types that identify form semantics,</li>
-  <li>variable names that identify the semantics of variables in templated links,</li>
-  <li>form field names that identify the semantics of form fields in forms, and</li>
-  <li>optionally, well-known locations.</li>
+  <li>variable names that identify the semantics of variables in templated links, and</li>
+  <li>form field names that identify the semantics of form fields in forms.</li>
 </ul>
-<h1 id="rfc.section.5.3"><a href="#rfc.section.5.3">5.3.</a> <a href="#at-runtime" id="at-runtime">At Runtime</a></h1>
-<p id="rfc.section.5.3.p.1">Explain how it works during runtime: server knows application and offers possible choices to client, client chooses by following links or submitting forms.</p>
+<p id="rfc.section.5.2.p.5">The knowledge about these identifiers as well as matching implementations have to be shared a priori in a RESTful system.</p>
+<h1 id="rfc.section.5.3"><a href="#rfc.section.5.3">5.3.</a> <a href="#interaction" id="interaction">Interaction</a></h1>
+<p id="rfc.section.5.3.p.1">A client begins interacting with an application through a GET request on an entry point URI.  The entry point URI is the only URI a client is expected to know before interacting with an application.  From there, the client is expected to make all requests by following links and submitting forms that are provided in previous responses.  The entry point IRI can be obtained, for example, by manual configuration or some discovery process (e.g., DNS-SD <a href="#RFC6763">[RFC6763]</a> or Resource Directory <a href="#I-D.ietf-core-resource-directory">[I-D.ietf-core-resource-directory]</a>).</p>
 <h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#design-patterns" id="design-patterns">Design Patterns</a></h1>
-<p id="rfc.section.6.p.1">Some classes of interaction with an IoT REST system are straighforward to design; a classic example of reading a temperature from a thermometer device is almost always implemented as a GET request to a resource that represents the current value of the thermometer. However, certain types of interaction, for example data conversions or event handling, do not have as straighforward and well established ways to represent the logic with resources and REST methods.</p>
-<p id="rfc.section.6.p.2">The following sections describe how such interactions can be modeled in a RESTful system and what are the benefits of different approaches.</p>
+<p id="rfc.section.6.p.1">Certain kinds of design problems are often recurring in variety of domains, and often re-usable design patterns can be applied to them.  Also some interactions with a RESTful IoT system are straighforward to design; a classic example of reading a temperature from a thermometer device is almost always implemented as a GET request to a resource that represents the current value of the thermometer.  However, certain interactions, for example data conversions or event handling, do not have as straighforward and well established ways to represent the logic with resources and REST methods.</p>
+<p id="rfc.section.6.p.2">The following sections describe how common design problems such as different interactions can be modeled with RESTful and what are the benefits of different approaches.</p>
 <h1 id="rfc.section.6.1"><a href="#rfc.section.6.1">6.1.</a> <a href="#collections" id="collections">Collections</a></h1>
-<h1 id="rfc.section.6.2"><a href="#rfc.section.6.2">6.2.</a> <a href="#calling-a-function" id="calling-a-function">Calling a Function</a></h1>
-<p id="rfc.section.6.2.p.1">To modify resource state, clients usually GET a representation from the server, process it locally, and transfer the resulting state back to the server with a PUT.  Sometimes, however, the state can only be modified on the server side, for instance, because representations would be too large to transfer or part of the required information shall not be accessible to clients.</p>
-<p id="rfc.section.6.2.p.2">In this case, resource state is modified by calling a function.  This is usually modeled with a POST request, as it leaves the behavior semantics completely to the server.</p>
-<h1 id="rfc.section.6.2.1"><a href="#rfc.section.6.2.1">6.2.1.</a> <a href="#instantly-returning-functions" id="instantly-returning-functions">Instantly Returning Functions</a></h1>
-<h1 id="rfc.section.6.2.2"><a href="#rfc.section.6.2.2">6.2.2.</a> <a href="#long-running-functions" id="long-running-functions">Long-running Functions</a></h1>
+<p id="rfc.section.6.1.p.1">A common pattern in RESTful systems across different domains is the collection.  A collection can be used to combine multiple resources together by providing resources that consist of set of (often partial) representations of resources, called items, and links to resources.  The collection resource also defines hypermedia controls for managing and searching the items in the collection.</p>
+<p id="rfc.section.6.1.p.2">Examples of the collection pattern in RESTful IoT systems are the CoRE Resource Directory <a href="#I-D.ietf-core-resource-directory">[I-D.ietf-core-resource-directory]</a>, CoAP pub/sub broker <a href="#I-D.ietf-core-coap-pubsub">[I-D.ietf-core-coap-pubsub]</a>, and resource discovery via .well-known/core.  Collection+JSON <a href="#CollectionJSON">[CollectionJSON]</a> is an example of a generic collection Media Type.</p>
+<h1 id="rfc.section.6.2"><a href="#rfc.section.6.2">6.2.</a> <a href="#calling-a-procedure" id="calling-a-procedure">Calling a Procedure</a></h1>
+<p id="rfc.section.6.2.p.1">To modify resource state, clients usually use GET to retrieve a representation from the server, modify that locally, and transfer the resulting state back to the server with a PUT (see <a href="#sec-uniform-interface">Section 4.4</a>).  Sometimes, however, the state can only be modified on the server side, for instance, because representations would be too large to transfer or part of the required information shall not be accessible to clients.  In this case, resource state is modified by calling a procedure (or &#8220;function&#8221;).  This is usually modeled with a POST request, as this method leaves the behavior semantics completely to the server.  Procedure calls can be divided into two different classes based on how long they are expected to execute: &#8220;instantly&#8221; returning and long-running.</p>
+<h1 id="rfc.section.6.2.1"><a href="#rfc.section.6.2.1">6.2.1.</a> <a href="#instantly-returning-procedures" id="instantly-returning-procedures">Instantly Returning Procedures</a></h1>
+<p id="rfc.section.6.2.1.p.1">When the procedure can return within the expected response time of the system, the result can be directly returned in the response.  The result can either be actual content or just a confirmation that the call was successful.  In either case, the response does not contain a representation of the resource, but a so-called action result.  Action results can still have hypermedia controls to provide the possible transitions in the application state machine.</p>
+<h1 id="rfc.section.6.2.2"><a href="#rfc.section.6.2.2">6.2.2.</a> <a href="#long-running-procedures" id="long-running-procedures">Long-running Procedures</a></h1>
+<p id="rfc.section.6.2.2.p.1">When the procedure takes longer than the expected response time of the system, or even longer than the response timeout, it is a good pattern to create a new resource to track the &#8220;task&#8221; execution.  The server would respond instantly with a &#8220;Created&#8221; status (HTTP code 201 or CoAP 2.01) and indicate the location of the task resource in the corresponding header field (or CoAP option) or as a link in the action result.  The created resource can be used to monitor the progress, to potentially modify queued tasks or cancel tasks, and to eventually retrieve the result.</p>
+<p id="rfc.section.6.2.2.p.2">Monitoring information would be modeled as state of the task resource, and hence be retrievable as representation.  The result &#8211; when available &#8211; can be embedded in the representation or given as link to another sub-resource.  Modifying tasks can be modeled with forms that either update sub-resources via PUT or do a partial write using PATCH or POST.  Canceling a task would be modeled with a form that uses DELETE to remove the task resource.</p>
 <h1 id="rfc.section.6.2.3"><a href="#rfc.section.6.2.3">6.2.3.</a> <a href="#conversion" id="conversion">Conversion</a></h1>
-<p id="rfc.section.6.2.3.p.1">GET is cachable, good for static information such as look-up tables POST if the payload is large or binary, also good for time-dependent information</p>
-<h1 id="rfc.section.6.2.4"><a href="#rfc.section.6.2.4">6.2.4.</a> <a href="#text-to-speech-example" id="text-to-speech-example">Text-to-Speech Example</a></h1>
-<h1 id="rfc.section.6.2.5"><a href="#rfc.section.6.2.5">6.2.5.</a> <a href="#speech-to-text-example" id="speech-to-text-example">Speech-to-Text Example</a></h1>
-<h1 id="rfc.section.6.2.6"><a href="#rfc.section.6.2.6">6.2.6.</a> <a href="#events-as-state" id="events-as-state">Events as State</a></h1>
-<p id="rfc.section.6.2.6.p.1">In event-centric paradigms such as pub/sub, events are usually represented by an incoming message that might be even be identical for each occurance.  Since the messages are queued, the receiver is aware of each occurance of the event and can react accordingly.  In such systems, ringing a door bell, for instance, would result in a message being sent that represents the event that it was rung.</p>
-<p id="rfc.section.6.2.6.p.2">In resouce-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have lead to that state.  In a naive yet natural yet, a door bell could be modelled as a resource that can have the states unpressed and pressed.  There are, however, a few issues with this approach.  Polling is not an option, as it is highly unlikely to observe the pressed state with a realistic polling interval.  When using CoAP Observe with Confirmable notifications, the server will usually send two notifications for the event that the door bell was pressed: notification for changing from unpressed to pressed and another one for changing back to unpressed.  If the time between the state changes is very short, the server might drop the first notification, as Observe only guarantees only eventual consistency (see Section 1.3 of <a href="#RFC7641">[RFC7641]</a>).</p>
-<p id="rfc.section.6.2.6.p.3">The solution is to pick a state model that fits better to the application.  In the case of the door bell &#8211; and many other event-driven resources &#8211; it could be a counter that counts how often the bell was pressed.  The corresponding action is taken each time the client observes a change in the received representation.</p>
-<p id="rfc.section.6.2.6.p.4">In the case of a network outage, this could lead to a ringing sound 10 minutes after the bell was rung.  Also including a timestamp of the last counter increment in the state can help to suppress ringing a sound when the event has become obsolete.</p>
+<p id="rfc.section.6.2.3.p.1">GET is cachable, good for static information such as look-up tables.  POST if the payload is large or binary, also good for time-dependent information.  TBD: examples.</p>
+<h1 id="rfc.section.6.2.4"><a href="#rfc.section.6.2.4">6.2.4.</a> <a href="#events-as-state" id="events-as-state">Events as State</a></h1>
+<p id="rfc.section.6.2.4.p.1">In event-centric paradigms such as pub/sub, events are usually represented by an incoming message that might be even be identical for each occurance.  Since the messages are queued, the receiver is aware of each occurance of the event and can react accordingly.  In such systems, ringing a door bell, for instance, would result in a message being sent that represents the event that it was rung.</p>
+<p id="rfc.section.6.2.4.p.2">In resouce-oriented paradigms such as REST, messages usually carry the current state of the remote resource, independent from the changes (i.e., events) that have lead to that state.  In a naive yet natural yet, a door bell could be modelled as a resource that can have the states unpressed and pressed.  There are, however, a few issues with this approach.  Polling is not an option, as it is highly unlikely to observe the pressed state with a realistic polling interval.  When using CoAP Observe with Confirmable notifications, the server will usually send two notifications for the event that the door bell was pressed: notification for changing from unpressed to pressed and another one for changing back to unpressed.  If the time between the state changes is very short, the server might drop the first notification, as Observe only guarantees only eventual consistency (see Section 1.3 of <a href="#RFC7641">[RFC7641]</a>).</p>
+<p id="rfc.section.6.2.4.p.3">The solution is to pick a state model that fits better to the application.  In the case of the door bell &#8211; and many other event-driven resources &#8211; it could be a counter that counts how often the bell was pressed.  The corresponding action is taken each time the client observes a change in the received representation.</p>
+<p id="rfc.section.6.2.4.p.4">In the case of a network outage, this could lead to a ringing sound 10 minutes after the bell was rung.  Also including a timestamp of the last counter increment in the state can help to suppress ringing a sound when the event has become obsolete.</p>
 <h1 id="rfc.section.6.3"><a href="#rfc.section.6.3">6.3.</a> <a href="#server-push" id="server-push">Server Push</a></h1>
 <p id="rfc.section.6.3.p.1">Observing State (asynchronous updates) of a resource</p>
 <h1 id="rfc.section.7"><a href="#rfc.section.7">7.</a> <a href="#sec-sec" id="sec-sec">Security Considerations</a></h1>
@@ -799,12 +823,30 @@ scheme     authority       path        query   fragment
   <tbody>
     <tr>
       <td class="reference">
+        <b id="CollectionJSON">[CollectionJSON]</b>
+      </td>
+      <td class="top"><a>Mike Amundsen, .</a>, "<a href="http://amundsen.com/media-types/collection/format/">Collection+JSON - Document Format</a>", n.d..</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="I-D.ietf-core-coap-pubsub">[I-D.ietf-core-coap-pubsub]</b>
+      </td>
+      <td class="top"><a>Koster, M.</a>, <a>Keranen, A.</a> and <a>J. Jimenez</a>, "<a href="http://tools.ietf.org/html/draft-ietf-core-coap-pubsub-02">Publish-Subscribe Broker for the Constrained Application Protocol (CoAP)</a>", Internet-Draft draft-ietf-core-coap-pubsub-02, July 2017.</td>
+    </tr>
+    <tr>
+      <td class="reference">
         <b id="I-D.ietf-core-senml">[I-D.ietf-core-senml]</b>
       </td>
       <td class="top"><a>Jennings, C.</a>, <a>Shelby, Z.</a>, <a>Arkko, J.</a>, <a>Keranen, A.</a> and <a>C. Bormann</a>, <a href="http://tools.ietf.org/html/draft-ietf-core-senml-10">Media Types for Sensor Measurement Lists (SenML)</a>", Internet-Draft draft-ietf-core-senml-10, July 2017.</td>
     </tr>
     <tr><td class="reference"><b id="IANA-CoAP-media">[IANA-CoAP-media]</b></td><td class="top"><a href="http://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats">CoAP Content-Formats</a>", n.d..</td>, "</tr>
     <tr><td class="reference"><b id="IANA-media-types">[IANA-media-types]</b></td><td class="top"><a href="http://www.iana.org/assignments/media-types/media-types.xhtml">Media Types</a>", n.d..</td>, "</tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC6763">[RFC6763]</b>
+      </td>
+      <td class="top"><a>Cheshire, S.</a> and <a>M. Krochmal</a>, "<a href="http://tools.ietf.org/html/rfc6763">DNS-Based Service Discovery</a>", RFC 6763, DOI 10.17487/RFC6763, February 2013.</td>
+    </tr>
     <tr>
       <td class="reference">
         <b id="RFC6943">[RFC6943]</b>
@@ -896,6 +938,28 @@ scheme     authority       path        query   fragment
 	  <span class="country-name vcardline">Switzerland</span>
 	</span>
 	<span class="vcardline">EMail: <a href="mailto:kovatsch@inf.ethz.ch">kovatsch@inf.ethz.ch</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Klaus Hartke</span> 
+	  <span class="n hidden">
+		<span class="family-name">Hartke</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Universitaet Bremen TZI</span>
+	<span class="adr">
+	  <span class="vcardline">Postfach 330440</span>
+
+	  <span class="vcardline">
+		<span class="locality">Bremen</span>,  
+		<span class="region"></span>
+		<span class="code">D-28359</span>
+	  </span>
+	  <span class="country-name vcardline">Germany</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:hartke@tzi.org">hartke@tzi.org</a></span>
 
   </address>
 </div>
