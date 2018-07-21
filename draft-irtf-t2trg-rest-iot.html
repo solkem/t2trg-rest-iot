@@ -16,17 +16,17 @@ body {
   font-size-adjust: 0.5;
   line-height: 24px;
   margin: 75px auto;
-  max-width: 724px;
+  max-width: 624px;
   padding: 0 5px;
 }
 
 .title, .filename, h1, h2, h3, h4, h5 {
-  font: 16px "Helvetica Neue","Roboto Condensed","Open Sans",Helvetica,Calibri,sans-serif;
+  font: 16px "Roboto Condensed","Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
   font-size-adjust: 0.5;
   font-weight: bold;
   color: #333;
   line-height: 100%;
-  margin: 0.8em 0 0.3em;
+  margin: 1.2em 0 0.3em;
 }
 .title, #rfc\.title h1 { font-size: 32px; }
 h1, section h1, h2, section h2, section h3, nav h2 { font-size: 20px; }
@@ -84,7 +84,7 @@ table.header td, table#rfc\.headerblock td {
 }
 
 samp, tt, code, pre {
-  font: 11pt consolas, monospace;
+  font: 15px Consolas, monospace;
   font-size-adjust: none;
 }
 pre {
@@ -165,12 +165,17 @@ a[href]:hover {
   background-color: #eee;
 }
 
-ol, ul, li, p {
+p, ol, ul, li {
   padding: 0;
-  margin: 0.5em 0 0.5em 2em;
 }
-li, p {
-  margin-left: 0;
+p {
+  margin: 0.5em 0;
+}
+ol, ul {
+  margin: 0.2em 0 0.2em 2em;
+}
+li {
+  margin: 0.2em 0;
 }
 address {
   font-style: normal;
@@ -184,7 +189,7 @@ ul.toc li {
   margin: 0;
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 924px) {
   body {
     padding-right: 350px;
   }
@@ -192,7 +197,7 @@ ul.toc li {
     position: fixed;
     bottom: 0;
     right: 0;
-    right: calc(50vw - 550px);
+    right: calc(50vw - 500px);
     width: 300px;
     z-index: 1;
     overflow: auto;
@@ -323,7 +328,7 @@ ul.toc li {
 
   <meta name="dct.creator" content="Keranen, A., Kovatsch, M., and K. Hartke" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-irtf-t2trg-rest-iot-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-5-07" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-7-21" />
   <meta name="dct.abstract" content="This document gives guidance for designing Internet of Things (IoT) systems that follow the principles of the Representational State Transfer (REST) architectural style." />
   <meta name="description" content="This document gives guidance for designing Internet of Things (IoT) systems that follow the principles of the Representational State Transfer (REST) architectural style." />
 
@@ -347,8 +352,8 @@ ul.toc li {
   <td class="right">M. Kovatsch</td>
 </tr>
 <tr>
-  <td class="left">Expires: November 8, 2018</td>
-  <td class="right">ETH Zurich</td>
+  <td class="left">Expires: January 22, 2019</td>
+  <td class="right">Siemens AG</td>
 </tr>
 <tr>
   <td class="left"></td>
@@ -356,11 +361,11 @@ ul.toc li {
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">Universitaet Bremen TZI</td>
+  <td class="right">Ericsson</td>
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">May 07, 2018</td>
+  <td class="right">July 21, 2018</td>
 </tr>
 
     	
@@ -380,7 +385,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on November 8, 2018.</p>
+<p>This Internet-Draft will expire on January 22, 2019.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -438,12 +443,15 @@ ul.toc li {
 
   <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a></h1>
 <p id="rfc.section.1.p.1">The Representational State Transfer (REST) architectural style <a href="#REST">[REST]</a> is a set of guidelines and best practices for building distributed hypermedia systems.  At its core is a set of constraints, which when fulfilled enable desirable properties for distributed software systems such as scalability and modifiability.  When REST principles are applied to the design of a system, the result is often called RESTful and in particular an API following these principles is called a RESTful API.</p>
-<p id="rfc.section.1.p.2">Different protocols can be used with RESTful systems, but at the time of writing the most common protocols are HTTP <a href="#RFC7230">[RFC7230]</a> and CoAP <a href="#RFC7252">[RFC7252]</a>.  Since RESTful APIs are often simple and lightweight, they are a good fit for various IoT applications.  The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information.  Design of a good RESTful IoT system has naturally many commonalities with other Web systems.  Compared to other systems, the key characteristics of many IoT systems include:</p>
+<p id="rfc.section.1.p.2">Different protocols can be used with RESTful systems, but at the time of writing the most common protocols are HTTP <a href="#RFC7230">[RFC7230]</a> and CoAP <a href="#RFC7252">[RFC7252]</a>.  Since RESTful APIs are often simple and lightweight, they are a good fit for various IoT applications.  The goal of this document is to give basic guidance for designing RESTful systems and APIs for IoT applications and give pointers for more information.</p>
+<p id="rfc.section.1.p.3">Design of a good RESTful IoT system has naturally many commonalities with other Web systems.  Compared to other systems, the key characteristics of many IoT systems include:</p>
 <p/>
 
 <ul>
+  <li>need to accommodate for constrained devices, so with IoT, REST is not only used for scaling out (large number of clients on a web server), but also for scaling down (efficient server on constrained node)</li>
   <li>data formats, interaction patterns, and other mechanisms that minimize, or preferably avoid, the need for human interaction</li>
   <li>preference for compact and simple data formats to facilitate efficient transfer over (often) constrained networks and lightweight processing in constrained nodes</li>
+  <li>the usually large number of endpoints can not be updated simultaneously, yet the system needs to be able to evolve in the field without long downtimes</li>
 </ul>
 <h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#sec-terms" id="sec-terms">Terminology</a></h1>
 <p id="rfc.section.2.p.1">This section explains some of the common terminology that is used in the context of RESTful design for IoT systems. For terminology of constrained nodes and networks, see <a href="#RFC7228">[RFC7228]</a>.</p>
@@ -458,6 +466,10 @@ ul.toc li {
   <dd style="margin-left: 8">The state kept by a client between requests. This typically includes the currently processed representation, the set of active requests, the history of requests, bookmarks (URIs stored for later retrieval), and application-specific state (e.g., local variables).  (Note that this is called &#8220;Application State&#8221; in <a href="#REST">[REST]</a>, which has some ambiguity in modern (IoT) systems where the overall state of the distributed application (i.e., application state) is reflected in the union of all Client States and Resource States of all clients and servers involved.)</dd>
   <dt>Content Negotiation:</dt>
   <dd style="margin-left: 8">The practice of determining the &#8220;best&#8221; representation for a client when examining the current state of a resource.  The most common forms of content negotiation are Proactive Content Negotiation and Reactive Content Negotiation.</dd>
+  <dt>Dereference:</dt>
+  <dd style="margin-left: 8">To use an access mechanism (e.g., HTTP or CoAP) to perform an action on a URI&#8217;s resource.</dd>
+  <dt>Dereferencable URI:</dt>
+  <dd style="margin-left: 8">A URI that can be dereferenced, i.e., an action can be performed on the identified resource.  Not all HTTP or CoAP URIs are dereferencable, e.g., when the target resource does not exist.</dd>
   <dt>Form:</dt>
   <dd style="margin-left: 8">A hypermedia control that enables a client to change the state of a resource or to construct a query locally.</dd>
   <dt>Forward Proxy:</dt>
@@ -505,7 +517,7 @@ ul.toc li {
 </dl>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#basics" id="basics">Basics</a></h1>
 <h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> <a href="#sec-architecture" id="sec-architecture">Architecture</a></h1>
-<p id="rfc.section.3.1.p.1">The components of a RESTful system are assigned one or both of two roles: client or server.  Note that the terms &#8220;client&#8221; and &#8220;server&#8221; refer only to the roles that the nodes assume for a particular message exchange. The same node might act as a client in some communications and a server in others.  Classic user agents (e.g., Web browsers) are always in the client role and have the initiative to issue requests.  Origin servers always have the server role and govern over the resources they host.</p>
+<p id="rfc.section.3.1.p.1">The components of a RESTful system are assigned one or both of two roles: client or server.  Note that the terms &#8220;client&#8221; and &#8220;server&#8221; refer only to the roles that the nodes assume for a particular message exchange. The same node might act as a client in some communications and a server in others.  Classic user agents (e.g., Web browsers) are always in the client role and have the initiative to issue requests.  Origin servers always have the server role and govern over the resources they host.  Simple IoT devices, such as sensors and actuators, are commonly acting as servers and exposing their physical world interaction capabilities (e.g., temperature measurement or door lock control capability) as resources.  Typical IoT system client can be a cloud service that retrieves data from the sensors and commands the actuators based on the sensor information.  Alternatively an IoT data storage system could work as a server where IoT sensor devices send data, in client role.</p>
 <div id="rfc.figure.1"/>
 <div id="basic-arch-x"/>
 <pre>
@@ -573,7 +585,8 @@ scheme     authority       path        query   fragment
 </pre>
 <p id="rfc.section.3.3.p.3">A URI is a sequence of characters that matches the syntax defined in <a href="#RFC3986">[RFC3986]</a>.  It consists of a hierarchical sequence of five components: scheme, authority, path, query, and fragment (from most significant to least significant).  A scheme creates a namespace for resources and defines how the following components identify a resource within that namespace.  The authority identifies an entity that governs part of the namespace, such as the server &#8220;www.example.org&#8221; in the &#8220;http&#8221; scheme.  A host name (e.g., a fully qualified domain name) or an IP address, potentially followed by a transport layer port number, are usually used in the authority component for the &#8220;http&#8221; and &#8220;coap&#8221; schemes.  The path and query contain data to identify a resource within the scope of the URI&#8217;s scheme and naming authority.  The fragment allows to refer to some portion of the resource, such as a Record in a SenML Pack.  However, fragments are processed only at client side and not sent on the wire.  <a href="#RFC7320">[RFC7320]</a> provides more details on URI design and ownership with best current practices for establishing URI structures, conventions, and formats.</p>
 <p id="rfc.section.3.3.p.4">For RESTful IoT applications, typical schemes include &#8220;https&#8221;, &#8220;coaps&#8221;, &#8220;http&#8221;, and &#8220;coap&#8221;.  These refer to HTTP and CoAP, with and without Transport Layer Security (TLS) <a href="#RFC5246">[RFC5246]</a>.  (CoAP uses Datagram TLS (DTLS) <a href="#RFC6347">[RFC6347]</a>, the variant of TLS for UDP.) These four schemes also provide means for locating the resource; using the HTTP protocol for &#8220;http&#8221; and &#8220;https&#8221;, and with the CoAP protocol for &#8220;coap&#8221; and &#8220;coaps&#8221;.  If the scheme is different for two URIs (e.g., &#8220;coap&#8221; vs. &#8220;coaps&#8221;), it is important to note that even if the rest of the URI is identical, these are two different resources, in two distinct namespaces.</p>
-<p id="rfc.section.3.3.p.5">The query parameters can be used to parametrize the resource.  For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response).  Query parameters in PUT and POST requests do not have such established semantics and are not commonly used.  Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered e.g., by proxies.  Therefore applications should not rely on their order; see Section 3.3 of <a href="#RFC6943">[RFC6943]</a> for more details.</p>
+<p id="rfc.section.3.3.p.5">Some schemes are for URIs with main purpose as identifiers and hence are not dereferencable, e.g., the &#8220;urn&#8221; scheme can be used to construct unique names in registered namespaces.  In particular the &#8220;urn:dev&#8221; <a href="#I-D.ietf-core-dev-urn">[I-D.ietf-core-dev-urn]</a> details multiple ways for generating and representing endpoint identifiers of IoT devices.</p>
+<p id="rfc.section.3.3.p.6">The query parameters can be used to parametrize the resource.  For example, a GET request may use query parameters to request the server to send only certain kind data of the resource (i.e., filtering the response).  Query parameters in PUT and POST requests do not have such established semantics and are not commonly used.  Whether the order of the query parameters matters in URIs is unspecified and they can be re-ordered e.g., by proxies.  Therefore applications should not rely on their order; see Section 3.3 of <a href="#RFC6943">[RFC6943]</a> for more details.</p>
 <h1 id="rfc.section.3.4"><a href="#rfc.section.3.4">3.4.</a> <a href="#representations" id="representations">Representations</a></h1>
 <p id="rfc.section.3.4.p.1">Clients can retrieve the resource state from an origin server or manipulate resource state on the origin server by transferring resource representations.  Resource representations have a media type that tells how the representation should be interpreted by identifying the representation format used.</p>
 <p id="rfc.section.3.4.p.2">Typical media types for IoT systems include:</p>
@@ -632,8 +645,8 @@ scheme     authority       path        query   fragment
 <p id="rfc.section.4.1.p.2">This improves simplicity and visibility, as it is clear which component started an interaction.  Furthermore, it improves modifiability through a clear separation of concerns.</p>
 <h1 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2.</a> <a href="#stateless" id="stateless">Stateless</a></h1>
 <p id="rfc.section.4.2.p.1">The Stateless constraint requires messages to be self-contained.  They must contain all the information to process it, independent from previous messages.  This allows to strictly separate the client state from the resource state.</p>
-<p id="rfc.section.4.2.p.2">This improves scalability and reliability, since servers or worker threads can be replicated.  It also improves visibility because message traces contain all the information to understand the logged interactions.</p>
-<p id="rfc.section.4.2.p.3">Furthermore, the Stateless constraint enables caching.</p>
+<p id="rfc.section.4.2.p.2">This improves scalability and reliability, since servers or worker threads can be replicated.  It also improves visibility because message traces contain all the information to understand the logged interactions.  Furthermore, the Stateless constraint enables caching.</p>
+<p id="rfc.section.4.2.p.3">The scaling properties of REST become particularly important in massive IoT scenarios where thousands or millions of IoT devices may attempt to interact with a system at the same time.</p>
 <h1 id="rfc.section.4.3"><a href="#rfc.section.4.3">4.3.</a> <a href="#cache" id="cache">Cache</a></h1>
 <p id="rfc.section.4.3.p.1">This constraint requires responses to have implicit or explicit cache-control metadata.  This enables clients and intermediary to store responses and re-use them to locally answer future requests.  The cache-control metadata is necessary to decide whether the information in the cached response is still fresh or stale and needs to be discarded.</p>
 <p id="rfc.section.4.3.p.2">Cache improves performance, as less data needs to be transferred and response times can be reduced significantly.  Less transfers also improves scalability, as origin servers can be protected from too many requests.  Local caches furthermore improve reliability, since requests can be answered even if the origin server is temporarily not available.</p>
@@ -743,15 +756,21 @@ scheme     authority       path        query   fragment
   <tbody>
     <tr>
       <td class="reference">
+        <b id="I-D.ietf-core-dev-urn">[I-D.ietf-core-dev-urn]</b>
+      </td>
+      <td class="top"><a>Arkko, J.</a>, <a>Jennings, C.</a> and <a>Z. Shelby</a>, "<a href="http://tools.ietf.org/html/draft-ietf-core-dev-urn-02">Uniform Resource Names for Device Identifiers</a>", Internet-Draft draft-ietf-core-dev-urn-02, July 2018.</td>
+    </tr>
+    <tr>
+      <td class="reference">
         <b id="I-D.ietf-core-object-security">[I-D.ietf-core-object-security]</b>
       </td>
-      <td class="top"><a>Selander, G.</a>, <a>Mattsson, J.</a>, <a>Palombini, F.</a> and <a>L. Seitz</a>, "<a href="http://tools.ietf.org/html/draft-ietf-core-object-security-12">Object Security for Constrained RESTful Environments (OSCORE)</a>", Internet-Draft draft-ietf-core-object-security-12, March 2018.</td>
+      <td class="top"><a>Selander, G.</a>, <a>Mattsson, J.</a>, <a>Palombini, F.</a> and <a>L. Seitz</a>, "<a href="http://tools.ietf.org/html/draft-ietf-core-object-security-13">Object Security for Constrained RESTful Environments (OSCORE)</a>", Internet-Draft draft-ietf-core-object-security-13, June 2018.</td>
     </tr>
     <tr>
       <td class="reference">
         <b id="I-D.ietf-core-resource-directory">[I-D.ietf-core-resource-directory]</b>
       </td>
-      <td class="top"><a>Shelby, Z.</a>, <a>Koster, M.</a>, <a>Bormann, C.</a>, <a>Stok, P.</a> and <a>C. Amsuess</a>, "<a href="http://tools.ietf.org/html/draft-ietf-core-resource-directory-13">CoRE Resource Directory</a>", Internet-Draft draft-ietf-core-resource-directory-13, March 2018.</td>
+      <td class="top"><a>Shelby, Z.</a>, <a>Koster, M.</a>, <a>Bormann, C.</a>, <a>Stok, P.</a> and <a>C. Amsuess</a>, "<a href="http://tools.ietf.org/html/draft-ietf-core-resource-directory-14">CoRE Resource Directory</a>", Internet-Draft draft-ietf-core-resource-directory-14, July 2018.</td>
     </tr>
     <tr>
       <td class="reference">
@@ -864,19 +883,19 @@ scheme     authority       path        query   fragment
       <td class="reference">
         <b id="I-D.ietf-core-coap-pubsub">[I-D.ietf-core-coap-pubsub]</b>
       </td>
-      <td class="top"><a>Koster, M.</a>, <a>Keranen, A.</a> and <a>J. Jimenez</a>, "<a href="http://tools.ietf.org/html/draft-ietf-core-coap-pubsub-04">Publish-Subscribe Broker for the Constrained Application Protocol (CoAP)</a>", Internet-Draft draft-ietf-core-coap-pubsub-04, March 2018.</td>
+      <td class="top"><a>Koster, M.</a>, <a>Keranen, A.</a> and <a>J. Jimenez</a>, "<a href="http://tools.ietf.org/html/draft-ietf-core-coap-pubsub-05">Publish-Subscribe Broker for the Constrained Application Protocol (CoAP)</a>", Internet-Draft draft-ietf-core-coap-pubsub-05, July 2018.</td>
     </tr>
     <tr>
       <td class="reference">
         <b id="I-D.ietf-core-senml">[I-D.ietf-core-senml]</b>
       </td>
-      <td class="top"><a>Jennings, C.</a>, <a>Shelby, Z.</a>, <a>Arkko, J.</a>, <a>Keranen, A.</a> and <a>C. Bormann</a>, <a href="http://tools.ietf.org/html/draft-ietf-core-senml-14">Media Types for Sensor Measurement Lists (SenML)</a>", Internet-Draft draft-ietf-core-senml-14, April 2018.</td>
+      <td class="top"><a>Jennings, C.</a>, <a>Shelby, Z.</a>, <a>Arkko, J.</a>, <a>Keranen, A.</a> and <a>C. Bormann</a>, <a href="http://tools.ietf.org/html/draft-ietf-core-senml-16">Sensor Measurement Lists (SenML)</a>", Internet-Draft draft-ietf-core-senml-16, May 2018.</td>
     </tr>
     <tr>
       <td class="reference">
         <b id="I-D.irtf-t2trg-iot-seccons">[I-D.irtf-t2trg-iot-seccons]</b>
       </td>
-      <td class="top"><a>Garcia-Morchon, O.</a>, <a>Kumar, S.</a> and <a>M. Sethi</a>, "<a href="http://tools.ietf.org/html/draft-irtf-t2trg-iot-seccons-14">State-of-the-Art and Challenges for the Internet of Things Security</a>", Internet-Draft draft-irtf-t2trg-iot-seccons-14, April 2018.</td>
+      <td class="top"><a>Garcia-Morchon, O.</a>, <a>Kumar, S.</a> and <a>M. Sethi</a>, "<a href="http://tools.ietf.org/html/draft-irtf-t2trg-iot-seccons-15">State-of-the-Art and Challenges for the Internet of Things Security</a>", Internet-Draft draft-irtf-t2trg-iot-seccons-15, May 2018.</td>
     </tr>
     <tr><td class="reference"><b id="IANA-CoAP-media">[IANA-CoAP-media]</b></td><td class="top"><a href="http://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats">CoAP Content-Formats</a>", n.d..</td>, "</tr>
     <tr><td class="reference"><b id="IANA-media-types">[IANA-media-types]</b></td><td class="top"><a href="http://www.iana.org/assignments/media-types/media-types.xhtml">Media Types</a>", n.d..</td>, "</tr>
@@ -965,18 +984,18 @@ scheme     authority       path        query   fragment
 		<span class="family-name">Kovatsch</span>
 	  </span>
 	</span>
-	<span class="org vcardline">ETH Zurich</span>
+	<span class="org vcardline">Siemens AG</span>
 	<span class="adr">
-	  <span class="vcardline">Universitaetstrasse 6</span>
+	  <span class="vcardline">Otto-Hahn-Ring 6</span>
 
 	  <span class="vcardline">
-		<span class="locality">Zurich</span>,  
+		<span class="locality">Munich</span>,  
 		<span class="region"></span>
-		<span class="code">CH-8092</span>
+		<span class="code">D-81739</span>
 	  </span>
-	  <span class="country-name vcardline">Switzerland</span>
+	  <span class="country-name vcardline">Germany</span>
 	</span>
-	<span class="vcardline">EMail: <a href="mailto:kovatsch@inf.ethz.ch">kovatsch@inf.ethz.ch</a></span>
+	<span class="vcardline">EMail: <a href="mailto:matthias.kovatsch@siemens.com">matthias.kovatsch@siemens.com</a></span>
 
   </address>
 </div><div class="avoidbreak">
@@ -987,18 +1006,18 @@ scheme     authority       path        query   fragment
 		<span class="family-name">Hartke</span>
 	  </span>
 	</span>
-	<span class="org vcardline">Universitaet Bremen TZI</span>
+	<span class="org vcardline">Ericsson</span>
 	<span class="adr">
-	  <span class="vcardline">Postfach 330440</span>
+	  <span class="vcardline">Torshamnsgatan 23</span>
 
 	  <span class="vcardline">
-		<span class="locality">Bremen</span>,  
+		<span class="locality">Stockholm</span>,  
 		<span class="region"></span>
-		<span class="code">D-28359</span>
+		<span class="code">SE-16483</span>
 	  </span>
-	  <span class="country-name vcardline">Germany</span>
+	  <span class="country-name vcardline">Sweden</span>
 	</span>
-	<span class="vcardline">EMail: <a href="mailto:hartke@tzi.org">hartke@tzi.org</a></span>
+	<span class="vcardline">EMail: <a href="mailto:klaus.hartke@ericsson.com">klaus.hartke@ericsson.com</a></span>
 
   </address>
 </div>
